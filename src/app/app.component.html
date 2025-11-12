@@ -1,0 +1,112 @@
+<!-- Preloader -->
+<div class="preloader" *ngIf="isLoading" aria-hidden="false">
+  <div class="preloader-inner">
+    <div class="spinner" aria-hidden="true">
+      <svg viewBox="0 0 50 50" class="ring">
+        <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" />
+      </svg>
+    </div>
+    <p class="loading-text">Cargando CV...</p>
+  </div>
+</div>
+
+<!-- Banner -->
+<header class="banner" [style.backgroundImage]="'url(' + bannerUrl + ')'">
+  <div class="banner-overlay">
+    <div class="container header-inner">
+      <div class="profile">
+        <img class="avatar" [src]="'https://github.com/'+githubUser+'.png'" [alt]="'Avatar de ' + fullName" />
+        <div class="profile-info">
+          <h1 class="name">{{ fullName }}</h1>
+          <p class="subtitle">Desarrollador en formación • Estudiante en IES Luis Vives</p>
+          <div class="badges">
+            <span class="badge">IES Luis Vives</span>
+            <span class="badge">Backend • Kotlin & Java</span>
+            <span class="badge">Frontend • HTML/CSS/JS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button (click)="printPDF()" class="btn primary"><i class="fa-solid fa-file-pdf"></i> Descargar CV (PDF)</button>
+        <a class="btn ghost" [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+        <button id="themeToggle" (click)="toggleTheme()" class="btn" title="Cambiar tema">
+          <i [ngClass]="dark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container main-grid">
+  <section class="card about">
+    <h2>Sobre mí</h2>
+    <p>Soy estudiante de desarrollo de aplicaciones web en el <strong>IES Luis Vives</strong>. Me apasiona crear soluciones tecnológicas, aprender nuevas herramientas y mejorar mis habilidades tanto en backend (Kotlin/Java/Spring Boot) como en frontend (HTML/CSS/JavaScript).</p>
+    <ul class="learn">
+      <li>📱 Desarrollo backend con Kotlin, Java y Spring Boot</li>
+      <li>🎨 Diseño web responsivo y frameworks modernos</li>
+      <li>🗄️ Gestión avanzada de bases de datos (SQL, MariaDB, MongoDB)</li>
+    </ul>
+  </section>
+
+  <section class="card skills">
+    <h2>Tecnologías y herramientas</h2>
+    <div class="tech-grid">
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" /> HTML5</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" /> CSS3</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" /> JavaScript</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg" alt="Bootstrap" /> Bootstrap</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" /> Java</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" /> Kotlin</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring" /> Spring Boot</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" /> Docker</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" /> Git</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mariadb/mariadb-plain.svg" alt="MariaDB" /> MariaDB</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" /> MongoDB</div>
+      <div class="tech"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman" /> Postman</div>
+    </div>
+  </section>
+
+  <section class="card experience">
+    <h2>Proyectos / Experiencia</h2>
+    <ul class="projects">
+      <li>
+        <h3>Proyecto: API REST con Spring Boot</h3>
+        <p>Desarrollo de una API REST para gestión de datos con Spring Boot y base de datos MariaDB. Implementación de endpoints CRUD, control de errores y pruebas con Postman.</p>
+      </li>
+      <li>
+        <h3>Proyecto: App móvil (Kotlin)</h3>
+        <p>Aplicación básica en Kotlin para Android con interfaces simples e interacción con una API remota.</p>
+      </li>
+      <li>
+        <h3>Proyecto: Página web responsiva</h3>
+        <p>Landing page y maquetación con HTML5/CSS3 y Bootstrap, adaptada a móviles y escritorio.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="card contact">
+    <h2>Contacto</h2>
+    <p>Puedes ver mi trabajo y mis repositorios en GitHub:</p>
+    <p class="contact-links">
+      <a [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> github.com/{{ githubUser }}</a>
+    </p>
+
+    <div class="stats">
+      <img alt="GitHub stats" [src]="'https://github-readme-stats.vercel.app/api?username=' + githubUser + '&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=C9D1D9'" />
+      <img alt="Streak" [src]="'https://github-readme-streak-stats.herokuapp.com/?user=' + githubUser + '&theme=tokyonight&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=FF6B6B&currStreakLabel=58A6FF'" />
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© {{ year }} {{ fullName }} — Estudiante en IES Luis Vives</p>
+    <p class="quote">"El código es poesía, y cada proyecto es una nueva historia"</p>
+  </div>
+</footer>
+
+<!-- Botón ir arriba -->
+<button class="scroll-top" *ngIf="showScrollTop" (click)="scrollTop()" aria-label="Ir arriba">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
