@@ -95,7 +95,7 @@ export class GithubService {
     }
 
     // Si GitHub marca has_pages como true
-    if (repo.has_pages === true) {
+    if (repo.has_pages) {
       return of(true);
     }
 
