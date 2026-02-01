@@ -1,4 +1,4 @@
-/* Banner responsive */
+/* Banner responsive con mejor overlay */
 .banner {
   height: clamp(180px, 30vh, 320px);
   background-position: center;
@@ -16,7 +16,6 @@
   backdrop-filter: blur(2px);
   padding: clamp(16px, 3vw, 24px) 0;
 }
-
 
 .header-inner {
   display: flex;
@@ -156,7 +155,7 @@
   gap: 8px;
   padding: clamp(10px, 2vw, 14px) clamp(16px, 3vw, 24px);
   background: var(--accent);
-  color: #021627;
+  color: #ffffff;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
@@ -209,7 +208,7 @@
   right: clamp(12px, 2vw, 24px);
   bottom: clamp(12px, 2vw, 24px);
   background: var(--accent);
-  color: #021627;
+  color: #ffffff;
   border: none;
   padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 14px);
   border-radius: 10px;
@@ -282,7 +281,7 @@
 /* Responsive Tablet */
 @media (min-width: 768px) and (max-width: 1023px) {
   .banner {
-    height: 220px;
+    height: 240px;
   }
 
   .main-grid {
@@ -298,17 +297,30 @@
   .header-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
   }
 
   .actions {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .btn.icon-only {
+    grid-column: span 2;
   }
 }
 
 /* Responsive Mobile */
 @media (max-width: 767px) {
   .banner {
-    height: 200px;
+    height: auto;
+    min-height: 280px;
+  }
+
+  .banner-overlay {
+    padding: 20px 0;
   }
 
   .avatar {
@@ -328,11 +340,23 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 16px;
+  }
+
+  .profile {
+    width: 100%;
   }
 
   .actions {
-    flex-direction: column;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .stats-grid img {
@@ -343,12 +367,16 @@
 /* Responsive Small Mobile */
 @media (max-width: 480px) {
   .banner {
-    height: 160px;
+    min-height: 320px;
+  }
+
+  .banner-overlay {
+    padding: 16px 0;
   }
 
   .avatar {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
   }
 
   .tech img {
@@ -362,6 +390,40 @@
 
   .contact-btn {
     width: 100%;
+  }
+
+  .header-inner {
+    gap: 12px;
+  }
+
+  .profile-info .name {
+    font-size: 1.5rem;
+  }
+
+  .profile-info .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+}
+
+/* Responsive Extra Small Mobile */
+@media (max-width: 360px) {
+  .banner {
+    min-height: 340px;
+  }
+
+  .avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    padding: 4px 8px;
   }
 }
 .text-color{
