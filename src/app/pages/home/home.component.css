@@ -12,9 +12,11 @@
 
 .banner-overlay {
   width: 100%;
-  background: linear-gradient(180deg, rgba(0,0,0,0.20), rgba(0,0,0,0.45));
+  background: var(--banner-overlay);
+  backdrop-filter: blur(2px);
   padding: clamp(16px, 3vw, 24px) 0;
 }
+
 
 .header-inner {
   display: flex;

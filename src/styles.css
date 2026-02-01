@@ -7,6 +7,8 @@
   --text-secondary: #8b96a5;
   --border: #1e2839;
   --shadow: rgba(0, 0, 0, 0.3);
+  --banner-overlay: rgba(0, 0, 0, 0.7);
+  --banner-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .light-theme {
@@ -17,6 +19,8 @@
   --text-secondary: #57606a;
   --border: #d0d7de;
   --shadow: rgba(0, 0, 0, 0.1);
+  --banner-overlay: rgba(255, 255, 255, 0.92);
+  --banner-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Reset y base */
@@ -147,12 +151,12 @@ p {
 
 .btn.primary {
   background: var(--accent);
-  color: #021627;
+  color: #ffffff;
 }
 
 .btn.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
+  box-shadow: 0 6px 16px rgba(88, 166, 255, 0.4);
 }
 
 .btn.ghost {
@@ -182,12 +186,15 @@ p {
 .name {
   margin: 0 0 4px 0;
   font-size: clamp(1.5rem, 3vw, 2.5rem);
+  text-shadow: var(--banner-text-shadow);
 }
 
 .subtitle {
   margin: 0 0 12px 0;
   font-size: clamp(0.85rem, 1.5vw, 1.1rem);
-  color: var(--text-secondary);
+  color: var(--text);
+  text-shadow: var(--banner-text-shadow);
+  opacity: 0.95;
 }
 
 .badges {
@@ -198,12 +205,21 @@ p {
 
 .badge {
   padding: 6px 12px;
-  background: rgba(88, 166, 255, 0.1);
-  border: 1px solid var(--border);
+  background: rgba(88, 166, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(88, 166, 255, 0.3);
   border-radius: 20px;
   font-size: clamp(0.7rem, 1.2vw, 0.85rem);
-  color: var(--accent);
+  color: var(--text);
+  text-shadow: var(--banner-text-shadow);
   white-space: nowrap;
+  font-weight: 600;
+}
+
+.light-theme .badge {
+  background: rgba(9, 105, 218, 0.15);
+  border-color: rgba(9, 105, 218, 0.3);
+  color: var(--text);
 }
 
 /* Actions group */

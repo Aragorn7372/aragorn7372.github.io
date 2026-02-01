@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   githubUser = 'Aragorn7372';
   fullName = 'Aragorn7372';
   year = new Date().getFullYear();
-  bannerUrl = 'https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=2,12,18,20&height=200&section=header&text=Aragorn7372&fontSize=40&fontAlignY=35&desc=Developer&descAlignY=55&fontColor=ffffff&animation=fadeIn';
+  bannerUrl = 'https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=2,12,18,20&height=200&section=header&text=&fontSize=0';
   dark = true;
   showScrollTop = false;
   githubStatsUrl = 'https://github-readme-stats.vercel.app/api?username=Aragorn7372&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=C9D1D9';
