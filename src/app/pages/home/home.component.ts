@@ -16,6 +16,11 @@ export class HomeComponent implements OnInit {
   bannerUrl = 'https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=2,12,18,20&height=200&section=header&text=Aragorn7372&fontSize=40&fontAlignY=35&desc=Developer&descAlignY=55&fontColor=ffffff&animation=fadeIn';
   dark = true;
   showScrollTop = false;
+  githubStatsUrl = 'https://github-readme-stats.vercel.app/api?username=Aragorn7372&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=C9D1D9';
+
+  topLangsUrl = 'https://github-readme-stats.vercel.app/api/top-langs/?username=Aragorn7372&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=C9D1D9';
+
+  streakUrl = 'https://github-readme-streak-stats.herokuapp.com/?user=Aragorn7372&theme=tokyonight&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=FF6B6B&currStreakLabel=58A6FF';
 
   profileData = {
     about: 'Soy un estudiante de desarrollo de aplicaciones web en el IES Luis Vives, apasionado por crear soluciones tecnológicas y aprender constantemente. Me encanta explorar diferentes tecnologías y aplicarlas en proyectos reales.',
