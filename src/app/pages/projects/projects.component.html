@@ -1,0 +1,70 @@
+<div class="projects-page">
+  <!-- Header -->
+  <header class="projects-header">
+    <div class="container">
+      <div class="header-content">
+        <h1>Mis Proyectos Publicados</h1>
+        <p class="subtitle">Proyectos desplegados con GitHub Pages</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="container">
+    <div *ngIf="loadingProjects" class="loading-projects">
+      <div class="spinner-large"></div>
+      <p>Buscando proyectos con GitHub Pages...</p>
+    </div>
+
+    <div *ngIf="!loadingProjects && githubPagesProjects.length === 0" class="no-projects">
+      <i class="fa-solid fa-folder-open"></i>
+      <h2>No se encontraron proyectos</h2>
+      <p>No hay repositorios con GitHub Pages activo en este momento.</p>
+      <a routerLink="/" class="btn primary">
+        <i class="fa-solid fa-home"></i> Volver al inicio
+      </a>
+    </div>
+
+    <div *ngIf="!loadingProjects && githubPagesProjects.length > 0" class="projects-grid">
+      <div class="project-card" *ngFor="let project of githubPagesProjects">
+        <div class="project-image">
+          <img [src]="'https://opengraph.githubassets.com/1/' + githubUser + '/' + project.name"
+               [alt]="project.name"
+               onerror="this.src='https://via.placeholder.com/600x300/0D1117/58A6FF?text=' + this.alt">
+        </div>
+
+        <div class="project-content">
+          <div class="project-header">
+            <h3>{{ project.name }}</h3>
+            <div class="project-meta">
+              <span class="language" *ngIf="project.language">
+                <i class="fa-solid fa-code"></i> {{ project.language }}
+              </span>
+              <span class="stars" *ngIf="project.stars > 0">
+                <i class="fa-solid fa-star"></i> {{ project.stars }}
+              </span>
+              <span class="forks" *ngIf="project.forks > 0">
+                <i class="fa-solid fa-code-branch"></i> {{ project.forks }}
+              </span>
+            </div>
+          </div>
+
+          <p class="project-description">{{ project.description }}</p>
+
+          <div class="project-topics" *ngIf="project.topics.length > 0">
+            <span class="topic" *ngFor="let topic of project.topics">{{ topic }}</span>
+          </div>
+
+          <div class="project-links">
+            <a [href]="project.pagesUrl" target="_blank" rel="noopener" class="project-btn live">
+              <i class="fa-solid fa-globe"></i> Ver Demo
+            </a>
+            <a [href]="project.repoUrl" target="_blank" rel="noopener" class="project-btn repo">
+              <i class="fa-brands fa-github"></i> Código
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

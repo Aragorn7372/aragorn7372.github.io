@@ -1,0 +1,137 @@
+<!-- Banner -->
+<header class="banner" [style.backgroundImage]="'url(' + bannerUrl + ')'">
+  <div class="banner-overlay">
+    <div class="container header-inner">
+      <div class="profile">
+        <img class="avatar" [src]="'https://github.com/'+githubUser+'.png'" [alt]="'Avatar de ' + fullName" />
+        <div class="profile-info">
+          <h1 class="name">{{ fullName }}</h1>
+          <p class="subtitle">Desarrollador en formación • Estudiante en IES Luis Vives</p>
+          <div class="badges">
+            <span class="badge">IES Luis Vives</span>
+            <span class="badge">Backend • Kotlin & Java</span>
+            <span class="badge">Frontend • Angular & TypeScript</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a routerLink="/projects" class="btn primary">
+          <i class="fa-solid fa-folder-open"></i> Ver Proyectos
+        </a>
+        <button (click)="printPDF()" class="btn ghost">
+          <i class="fa-solid fa-file-pdf"></i> Descargar CV
+        </button>
+        <a class="btn ghost" [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+        <button id="themeToggle" (click)="toggleTheme()" class="btn icon-only" title="Cambiar tema">
+          <i [ngClass]="dark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container main-grid">
+  <!-- Columna Izquierda -->
+  <div class="left-column">
+    <!-- Sobre mí -->
+    <section class="card about">
+      <h2>Sobre mí</h2>
+      <p>{{ profileData.about }}</p>
+    </section>
+
+    <!-- Actualmente aprendiendo -->
+    <section class="card learning">
+      <h2>Actualmente aprendiendo</h2>
+      <ul class="learn">
+        <li *ngFor="let item of profileData.learning">{{ item }}</li>
+      </ul>
+    </section>
+
+    <!-- Estadísticas de GitHub -->
+    <section class="card stats">
+      <h2>Estadísticas de GitHub</h2>
+      <div class="stats-grid">
+        <img [src]="'https://github-readme-stats.vercel.app/api?username=' + githubUser + '&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=C9D1D9'" [alt]="'Estadísticas de GitHub de ' + githubUser" />
+        <img [src]="'https://github-readme-stats.vercel.app/api/top-langs/?username=' + githubUser + '&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=C9D1D9'" [alt]="'Lenguajes más usados de ' + githubUser" />
+        <img [src]="'https://github-readme-streak-stats.herokuapp.com/?user=' + githubUser + '&theme=tokyonight&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=FF6B6B&currStreakLabel=58A6FF'" [alt]="'Racha de commits de ' + githubUser" />
+      </div>
+    </section>
+  </div>
+
+  <!-- Columna Derecha -->
+  <div class="right-column">
+    <!-- Grid 2x2 de tecnologías -->
+    <div class="tech-grid-2x2">
+      <!-- Frontend -->
+      <section class="card skills">
+        <h2>Frontend</h2>
+        <div class="tech-list">
+          <div class="tech" *ngFor="let tech of profileData.technologies.frontend">
+            <img [src]="tech.icon" [alt]="tech.name" />
+            <span>{{ tech.name }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Backend -->
+      <section class="card skills">
+        <h2>Backend</h2>
+        <div class="tech-list">
+          <div class="tech" *ngFor="let tech of profileData.technologies.backend">
+            <img [src]="tech.icon" [alt]="tech.name" />
+            <span>{{ tech.name }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bases de datos -->
+      <section class="card skills">
+        <h2>Bases de Datos</h2>
+        <div class="tech-list">
+          <div class="tech" *ngFor="let tech of profileData.technologies.databases">
+            <img [src]="tech.icon" [alt]="tech.name" />
+            <span>{{ tech.name }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Herramientas -->
+      <section class="card skills">
+        <h2>Herramientas</h2>
+        <div class="tech-list">
+          <div class="tech" *ngFor="let tech of profileData.technologies.tools">
+            <img [src]="tech.icon" [alt]="tech.name" />
+            <span>{{ tech.name }}</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Contacto -->
+    <section class="card contact">
+      <h2>Contacto</h2>
+      <div class="contact-links">
+        <a [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener" class="contact-btn">
+          <i class="fa-brands fa-github text-color"> GitHub</i>
+        </a>
+      </div>
+      <p class="quote"><em>"El código es poesía, y cada proyecto es una nueva historia"</em></p>
+    </section>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; {{ year }} {{ fullName }}. Hecho con <i class="fa-solid fa-heart"></i> y Angular.</p>
+    <img [src]="'https://komarev.com/ghpvc/?username=' + githubUser + '&color=58A6FF&style=flat-square&label=Visitas+al+perfil'" alt="Contador de visitas" />
+  </div>
+</footer>
+
+<!-- Scroll to top button -->
+<button *ngIf="showScrollTop" (click)="scrollTop()" class="scroll-top" title="Volver arriba">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
