@@ -70,8 +70,14 @@ export class HomeComponent implements OnInit {
     this.applyTheme();
   }
 
-  printPDF() {
-    window.print();
+  downloadCV() {
+    const link = document.createElement('a');
+    link.href = 'cv.pdf';
+    link.download = 'CV_Aragorn7372.pdf'; // Nombre del archivo al descargar
+    link.target = '_blank'; // Abrir en nueva pestaña si falla la descarga
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   toggleTheme() {
