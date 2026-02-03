@@ -1,0 +1,156 @@
+<div class="certificates-page">
+  <!-- Header -->
+  <header class="certificates-header">
+    <div class="container">
+      <a routerLink="/" class="back-btn">
+        <span class="back-icon">
+          <i class="fa-solid fa-arrow-left"></i>
+        </span>
+        <span class="back-text">
+          <span class="back-label">Volver</span>
+          <span class="back-sublabel">Inicio</span>
+        </span>
+      </a>
+
+      <div class="header-content">
+        <h1>🎓 Mis Certificaciones</h1>
+        <p class="subtitle">Certificados de cursos y formaciones completadas</p>
+      </div>
+
+      <!-- Barra de búsqueda y filtros -->
+      <div class="search-bar">
+        <div class="search-input-wrapper">
+          <i class="fa-solid fa-search"></i>
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="filterCertificates()"
+            placeholder="Buscar certificados..."
+            class="search-input"
+          />
+          <span class="result-count" *ngIf="!loading">
+            {{ filteredCertificates.length }} resultado{{ filteredCertificates.length !== 1 ? 's' : '' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="container">
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-certificates">
+      <div class="spinner-large"></div>
+      <p>Cargando certificados...</p>
+    </div>
+
+    <!-- No certificates -->
+    <div *ngIf="!loading && certificates.length === 0" class="no-certificates">
+      <i class="fa-solid fa-certificate"></i>
+      <h2>No se encontraron certificados</h2>
+      <p>No hay certificados disponibles en este momento.</p>
+      <a routerLink="/" class="btn primary">
+        <i class="fa-solid fa-home"></i> Volver al inicio
+      </a>
+    </div>
+
+    <!-- No results -->
+    <div *ngIf="!loading && certificates.length > 0 && filteredCertificates.length === 0" class="no-results">
+      <i class="fa-solid fa-search"></i>
+      <h2>No se encontraron resultados</h2>
+      <p>Intenta con otro término de búsqueda</p>
+      <button (click)="searchTerm = ''; filterCertificates()" class="btn ghost">
+        <i class="fa-solid fa-times"></i> Limpiar búsqueda
+      </button>
+    </div>
+
+    <!-- Certificates table -->
+    <div *ngIf="!loading && filteredCertificates.length > 0" class="certificates-container">
+      <div class="table-wrapper">
+        <table class="certificates-table">
+          <thead>
+          <tr>
+            <th class="sortable" (click)="changeSortBy('titulo')">
+              <div class="th-content">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Certificado</span>
+                <i class="fa-solid fa-sort sort-icon"
+                   [class.active]="sortBy === 'titulo'"
+                   [class.asc]="sortBy === 'titulo' && sortDirection === 'asc'"
+                   [class.desc]="sortBy === 'titulo' && sortDirection === 'desc'"></i>
+              </div>
+            </th>
+            <th class="sortable date-column" (click)="changeSortBy('fecha')">
+              <div class="th-content">
+                <i class="fa-solid fa-calendar"></i>
+                <span>Fecha</span>
+                <i class="fa-solid fa-sort sort-icon"
+                   [class.active]="sortBy === 'fecha'"
+                   [class.asc]="sortBy === 'fecha' && sortDirection === 'asc'"
+                   [class.desc]="sortBy === 'fecha' && sortDirection === 'desc'"></i>
+              </div>
+            </th>
+            <th class="actions-column">
+              <div class="th-content">
+                <i class="fa-solid fa-wrench"></i>
+                <span>Acciones</span>
+              </div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let cert of filteredCertificates; let i = index"
+              class="certificate-row"
+              [style.animation-delay]="(i * 0.05) + 's'">
+            <td class="title-cell">
+              <div class="certificate-title">
+                <i class="fa-solid fa-award cert-icon"></i>
+                <span>{{ certificatesService.formatTitle(cert.titulo) }}</span>
+              </div>
+            </td>
+            <td class="date-cell">
+              <span class="date-badge">{{ formatDate(cert.fecha) }}</span>
+            </td>
+            <td class="actions-cell">
+              <div class="action-buttons">
+                <button
+                  (click)="openCertificate(cert.url)"
+                  class="action-btn view-btn"
+                  title="Ver certificado">
+                  <i class="fa-solid fa-eye"></i>
+                  <span class="btn-text">Ver</span>
+                </button>
+                <button
+                  (click)="downloadCertificate(cert)"
+                  class="action-btn download-btn"
+                  title="Descargar certificado">
+                  <i class="fa-solid fa-download"></i>
+                  <span class="btn-text">Descargar</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Stats -->
+      <div class="certificates-stats">
+        <div class="stat-card">
+          <i class="fa-solid fa-certificate"></i>
+          <div class="stat-info">
+            <span class="stat-number">{{ certificates.length }}</span>
+            <span class="stat-label">Total Certificados</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-filter"></i>
+          <div class="stat-info">
+            <span class="stat-number">{{ filteredCertificates.length }}</span>
+            <span class="stat-label">Mostrando</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
