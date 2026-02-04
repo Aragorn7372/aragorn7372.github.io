@@ -1,0 +1,10 @@
+services:
+  cv:
+    build:
+      context: .
+      dockerfile: dockerfile
+      target: htmlblog
+    ports:
+      - "80:80"  # eliges la imagen a crear
+    restart: always
+
