@@ -68,17 +68,6 @@
   <div class="right-column">
     <!-- Grid 2x2 de tecnologías -->
     <div class="tech-grid-2x2">
-      <!-- Frontend -->
-      <section class="card skills">
-        <h2>Frontend</h2>
-        <div class="tech-list">
-          <div class="tech" *ngFor="let tech of profileData.technologies.frontend">
-            <img [src]="tech.icon" [alt]="tech.name" />
-            <span>{{ tech.name }}</span>
-          </div>
-        </div>
-      </section>
-
       <!-- Backend -->
       <section class="card skills">
         <h2>Backend</h2>
@@ -95,6 +84,16 @@
         <h2>Bases de Datos</h2>
         <div class="tech-list">
           <div class="tech" *ngFor="let tech of profileData.technologies.databases">
+            <img [src]="tech.icon" [alt]="tech.name" />
+            <span>{{ tech.name }}</span>
+          </div>
+        </div>
+      </section>
+      <!-- Frontend -->
+      <section class="card skills">
+        <h2>Frontend</h2>
+        <div class="tech-list">
+          <div class="tech" *ngFor="let tech of profileData.technologies.frontend">
             <img [src]="tech.icon" [alt]="tech.name" />
             <span>{{ tech.name }}</span>
           </div>
@@ -117,11 +116,11 @@
     <section class="card contact">
       <h2>Contacto</h2>
       <div class="contact-links">
-        <a [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener" class="contact-btn">
-          <i class="fa-brands fa-github text-color"> GitHub</i>
+        <a [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener" class="contact-btn text-color">
+          <i class="fa-brands fa-github text-color"> </i> GitHub
         </a>
-        <a href="https://www.linkedin.com/in/víctor-marín-escribano-44b2b639b/" target="_blank" rel="noopener" class="contact-btn">
-          <i class="fa-brands fa-linkedin text-color"> LinkedIn</i>
+        <a href="https://www.linkedin.com/in/víctor-marín-escribano-44b2b639b/" target="_blank" rel="noopener" class="contact-btn text-color">
+          <i class="fa-brands fa-linkedin text-color"> </i> LinkedIn
         </a>
       </div>
       <p class="quote"><em>"El código es poesía, y cada proyecto es una nueva historia"</em></p>

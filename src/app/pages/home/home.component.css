@@ -170,6 +170,10 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
 }
+.contact-btn:focus {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
 
 .quote {
   margin-top: 16px;
@@ -281,7 +285,12 @@
 /* Responsive Tablet */
 @media (min-width: 768px) and (max-width: 1023px) {
   .banner {
-    height: 240px;
+    height: auto;
+    min-height: 240px;
+  }
+
+  .banner-overlay {
+    padding: clamp(20px, 4vw, 32px) 0;
   }
 
   .main-grid {
@@ -296,8 +305,30 @@
 
   .header-inner {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .profile {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-info {
+    text-align: center;
+    width: 100%;
+  }
+
+  .avatar {
+    margin: 0 auto;
+  }
+
+  .badges {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .actions {
@@ -309,6 +340,15 @@
 
   .btn.icon-only {
     grid-column: span 2;
+  }
+
+  /* Ajustar tamaños de texto para tablet */
+  .name {
+    font-size: clamp(1.8rem, 4vw, 2.2rem) !important;
+  }
+
+  .subtitle {
+    font-size: clamp(0.9rem, 2vw, 1rem) !important;
   }
 }
 
