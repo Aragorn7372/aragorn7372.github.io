@@ -73,7 +73,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     const stored = localStorage.getItem('vm_theme');
-    this.dark = stored ? stored === 'dark' : true;
+    if (stored) {
+      this.dark = stored === 'dark';
+    } else {
+      this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
     this.applyTheme();
   }
 
