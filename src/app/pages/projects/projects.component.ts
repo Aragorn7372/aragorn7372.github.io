@@ -11,7 +11,7 @@ import { GithubService, GitHubPagesProject } from '../../services/github.service
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  githubUser = 'Aragorn7372';
+  githubUsers = ['Aragorn7372', 'G-Corp-YA'];
   githubPagesProjects: GitHubPagesProject[] = [];
   loadingProjects = true;
 
@@ -22,7 +22,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   loadGitHubPagesProjects(): void {
-    this.githubService.getGitHubPagesProjects(this.githubUser).subscribe({
+    this.githubService.getGitHubPagesProjects(this.githubUsers).subscribe({
       next: (projects) => {
         this.githubPagesProjects = projects;
         this.loadingProjects = false;

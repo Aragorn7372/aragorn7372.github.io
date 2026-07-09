@@ -16,14 +16,14 @@ export class HomeComponent implements OnInit {
   bannerUrl = 'https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=2,12,18,20&height=200&section=header&text=&fontSize=0';
   dark = true;
   showScrollTop = false;
-  githubStatsUrl = 'https://github-readme-stats.vercel.app/api?username=Aragorn7372&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=C9D1D9';
+  githubStatsUrl = 'https://raw.githubusercontent.com/Aragorn7372/Aragorn7372/master/stats-images/general-stats.svg';
 
-  topLangsUrl = 'https://github-readme-stats.vercel.app/api/top-langs/?username=Aragorn7372&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=C9D1D9';
+  topLangsUrl = 'https://raw.githubusercontent.com/Aragorn7372/Aragorn7372/master/stats-images/top-langs.svg';
 
-  streakUrl = 'https://github-readme-streak-stats.herokuapp.com/?user=Aragorn7372&theme=tokyonight&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=FF6B6B&currStreakLabel=58A6FF';
+  streakUrl = 'https://raw.githubusercontent.com/Aragorn7372/Aragorn7372/master/stats-images/activity-graph.svg';
 
   profileData = {
-    about: 'Soy un estudiante de desarrollo de aplicaciones web en el IES Luis Vives, apasionado por crear soluciones tecnológicas y aprender constantemente. Me encanta explorar diferentes tecnologías y aplicarlas en proyectos reales.',
+    about: 'Soy un desarrollador full stack titulado en el IES Luis Vives, apasionado por crear soluciones tecnológicas y aprender constantemente. Me encanta explorar diferentes tecnologías y aplicarlas en proyectos reales.',
     learning: [
       'Desarrollo de backend con Kotlin, Java, C# y Spring Boot',
       'Desarrollo frontend con Angular y TypeScript',

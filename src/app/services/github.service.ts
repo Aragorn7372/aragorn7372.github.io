@@ -17,6 +17,7 @@ export interface GitHubRepo {
   created_at: string;
   updated_at: string;
   default_branch: string;
+  _owner?: string;
 }
 
 export interface GitHubPagesProject {
@@ -36,7 +37,7 @@ export interface GitHubPagesProject {
 export class GithubService {
   private apiUrl = 'https://api.github.com';
   private projectsCache$?: Observable<GitHubPagesProject[]>;
-  private reposCache$?: Observable<GitHubRepo[]>;
+  private reposCache: { [username: string]: Observable<GitHubRepo[]> } = {};
 
   constructor(private http: HttpClient) {}
 
@@ -44,27 +45,25 @@ export class GithubService {
    * Obtiene todos los repositorios de un usuario (CON CACHÉ)
    */
   getUserRepos(username: string): Observable<GitHubRepo[]> {
-    // Si ya tenemos la petición en caché, reutilizarla
-    if (!this.reposCache$) {
+    if (!this.reposCache[username]) {
       const headers = new HttpHeaders({
         'Accept': 'application/vnd.github.v3+json'
       });
 
-      this.reposCache$ = this.http.get<GitHubRepo[]>(
+      this.reposCache[username] = this.http.get<GitHubRepo[]>(
         `${this.apiUrl}/users/${username}/repos?per_page=100&sort=updated`,
         { headers }
       ).pipe(
-        shareReplay(1), // Compartir el resultado entre múltiples suscriptores
+        shareReplay(1),
         catchError(error => {
-          console.error('Error fetching repos:', error);
-          // Si hay error, limpiar caché para reintentar después
-          this.reposCache$ = undefined;
+          console.error(`Error fetching repos for ${username}:`, error);
+          this.reposCache[username] = undefined as any;
           return of([]);
         })
       );
     }
 
-    return this.reposCache$;
+    return this.reposCache[username];
   }
 
   /**
@@ -106,8 +105,9 @@ export class GithubService {
   /**
    * Obtiene todos los proyectos con GitHub Pages activo (CON CACHÉ)
    */
-  getGitHubPagesProjects(username: string): Observable<GitHubPagesProject[]> {
-    // Si ya tenemos proyectos en caché, devolverlos
+  getGitHubPagesProjects(usernames: string | string[]): Observable<GitHubPagesProject[]> {
+    const users = Array.isArray(usernames) ? usernames : [usernames];
+    
     if (this.projectsCache$) {
       console.log('Usando proyectos desde caché');
       return this.projectsCache$;
@@ -115,29 +115,37 @@ export class GithubService {
 
     console.log('Buscando proyectos con GitHub Pages...');
 
-    this.projectsCache$ = this.getUserRepos(username).pipe(
-      switchMap(repos => {
-        if (repos.length === 0) {
+    const reposRequests = users.map(username => 
+      this.getUserRepos(username).pipe(
+        map(repos => ({ username, repos }))
+      )
+    );
+
+    this.projectsCache$ = forkJoin(reposRequests).pipe(
+      switchMap(usersRepos => {
+        const allRepos = usersRepos.flatMap(ur => ur.repos.map(r => ({ ...r, _owner: ur.username })));
+        
+        if (allRepos.length === 0) {
           return of([]);
         }
 
-        console.log(`Verificando ${repos.length} repositorios...`);
+        console.log(`Verificando ${allRepos.length} repositorios...`);
 
-        // Verificar cada repo (con delay para evitar rate limit)
-        const checks = repos.map((repo, index) =>
+        const checks = allRepos.map((repo: any, index: number) =>
           of(repo).pipe(
-            delay(index * 50), // Delay más corto
+            delay(index * 50),
             switchMap(r =>
-              this.checkIfHasPages(username, r).pipe(
+              this.checkIfHasPages(r._owner, r).pipe(
                 map(hasPages => ({
                   repo: r,
+                  owner: r._owner,
                   hasPages
                 }))
               )
             ),
             catchError(err => {
-              console.warn(`Error checking ${repo.name}:`, err);
-              return of({ repo, hasPages: false });
+              console.warn(`Error checking ${(repo as any).name}:`, err);
+              return of({ repo, owner: (repo as any)._owner, hasPages: false });
             })
           )
         );
@@ -146,7 +154,7 @@ export class GithubService {
           map(results => {
             const projectsWithPages = results
               .filter(r => r.hasPages)
-              .map(r => this.mapToGitHubPagesProject(username, r.repo));
+              .map(r => this.mapToGitHubPagesProject(r.owner, r.repo));
 
             console.log(`Encontrados ${projectsWithPages.length} proyectos con GitHub Pages:`,
               projectsWithPages.map(p => p.name));
@@ -154,10 +162,9 @@ export class GithubService {
           })
         );
       }),
-      shareReplay(1), // Cachear el resultado
+      shareReplay(1),
       catchError(error => {
         console.error('Error getting GitHub Pages projects:', error);
-        // Limpiar caché en caso de error
         this.projectsCache$ = undefined;
         return of([]);
       })
@@ -171,7 +178,7 @@ export class GithubService {
    */
   clearCache(): void {
     this.projectsCache$ = undefined;
-    this.reposCache$ = undefined;
+    this.reposCache = {};
     console.log('Caché limpiada');
   }
 
