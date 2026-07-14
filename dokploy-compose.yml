@@ -1,0 +1,8 @@
+services:
+  cv:
+    build:
+      context: .
+      dockerfile: dockerfile
+      target: htmlblog
+    restart: always
+
