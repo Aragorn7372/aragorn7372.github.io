@@ -25,6 +25,9 @@ FROM nginx:alpine AS htmlblog
 # Eliminar la web por defecto
 RUN rm -rf /usr/share/nginx/html/*
 
+# Copiar config de nginx (SPA fallback, ocultar versión)
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
 # Copiar el build
 COPY --from=builder /app/dist/Aragorn7372/browser/ /usr/share/nginx/html
 
