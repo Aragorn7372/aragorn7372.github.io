@@ -40,7 +40,7 @@
         <div class="project-image">
           <img [src]="project.repoUrl.replace('github.com', 'opengraph.githubassets.com/1') + '/' + project.name"
                [alt]="project.name"
-               onerror="this.src='https://via.placeholder.com/600x300/0D1117/58A6FF?text=' + this.alt">
+               (error)="onImageError($event, project)">
         </div>
 
         <div class="project-content">

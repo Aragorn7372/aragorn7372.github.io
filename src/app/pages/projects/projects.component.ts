@@ -33,4 +33,10 @@ export class ProjectsComponent implements OnInit {
       }
     });
   }
+
+  onImageError(event: Event, project: GitHubPagesProject): void {
+    const img = event.target as HTMLImageElement;
+    img.onerror = null;
+    img.src = `https://via.placeholder.com/600x300/0D1117/58A6FF?text=${encodeURIComponent(project.name)}`;
+  }
 }
