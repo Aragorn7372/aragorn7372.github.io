@@ -35,3 +35,9 @@ COPY --from=builder /app/dist/Aragorn7372/browser/ /usr/share/nginx/html
 RUN chmod -R 755 /usr/share/nginx/html && \
     chown -R nginx:nginx /usr/share/nginx/html
 
+# Config principal de nginx con rutas escribibles por usuario no-root
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Ejecutar como usuario no privilegiado
+USER nginx
+
