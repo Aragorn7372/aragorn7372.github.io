@@ -1,11 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", ":enableVulnerabilityAlerts"],
-  "baseBranches": ["main"],
-  "schedule": ["0 6 1,15 * *"],
-  "docker": {
-    "enabled": true
-  },
+  "baseBranchPatterns": ["main"],
+  "onboarding": false,
+  "requireConfig": "optional",
   "packageRules": [
     {
       "matchDatasources": ["docker"],
