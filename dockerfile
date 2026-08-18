@@ -2,7 +2,7 @@
 # STAGE 1: Build del CV
 # ============================================
 # node:22-alpine (pin 2026-08-04)
-FROM node:22-alpine@sha256:c610fcdfb1d5b4740dd70c284ed3cb16bb857e0f7166196e36a5501df7a3aa32 AS builder
+FROM node:24-alpine@sha256:d32cdf619f63fe0471182d08996dd516c6275bb5fd31ae06e55a570bd9e1ad43 AS builder
 
 WORKDIR /app
 
