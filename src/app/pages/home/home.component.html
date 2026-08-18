@@ -1,7 +1,8 @@
 <!-- Banner -->
-<header class="banner" [style.backgroundImage]="'url(' + bannerUrl + ')'">
-  <div class="banner-overlay">
-    <div class="container header-inner">
+<header class="banner">
+  <img class="banner-wave" [src]="dark ? 'banner-dark.svg' : 'banner-light.svg'" alt="" aria-hidden="true" />
+  <div class="banner-overlay"></div>
+  <div class="container header-inner">
       <div class="profile">
         <img class="avatar" [src]="'https://github.com/'+githubUser+'.png'" [alt]="'Avatar de ' + fullName" />
         <div class="profile-info">
@@ -33,7 +34,6 @@
         </button>
       </div>
     </div>
-  </div>
 </header>
 
 <main class="container main-grid">
