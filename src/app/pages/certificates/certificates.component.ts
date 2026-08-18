@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CertificatesService, Certificate } from '../../services/certificates.service';
@@ -7,7 +7,7 @@ import { CertificatesService, Certificate } from '../../services/certificates.se
 @Component({
   selector: 'app-certificates',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './certificates.component.html',
   styleUrls: ['./certificates.component.css']
 })

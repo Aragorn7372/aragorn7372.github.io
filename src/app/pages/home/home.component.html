@@ -49,7 +49,9 @@
     <section class="card learning">
       <h2>Actualmente aprendiendo</h2>
       <ul class="learn">
-        <li *ngFor="let item of profileData.learning">{{ item }}</li>
+        @for (item of profileData.learning; track item) {
+          <li>{{ item }}</li>
+        }
       </ul>
     </section>
 
@@ -72,10 +74,12 @@
       <section class="card skills">
         <h2>Backend</h2>
         <div class="tech-list">
-          <div class="tech" *ngFor="let tech of profileData.technologies.backend">
-            <img [src]="tech.icon" [alt]="tech.name" />
-            <span>{{ tech.name }}</span>
-          </div>
+          @for (tech of profileData.technologies.backend; track tech) {
+            <div class="tech">
+              <img [src]="tech.icon" [alt]="tech.name" />
+              <span>{{ tech.name }}</span>
+            </div>
+          }
         </div>
       </section>
 
@@ -83,20 +87,24 @@
       <section class="card skills">
         <h2>Bases de Datos</h2>
         <div class="tech-list">
-          <div class="tech" *ngFor="let tech of profileData.technologies.databases">
-            <img [src]="tech.icon" [alt]="tech.name" />
-            <span>{{ tech.name }}</span>
-          </div>
+          @for (tech of profileData.technologies.databases; track tech) {
+            <div class="tech">
+              <img [src]="tech.icon" [alt]="tech.name" />
+              <span>{{ tech.name }}</span>
+            </div>
+          }
         </div>
       </section>
       <!-- Frontend -->
       <section class="card skills">
         <h2>Frontend</h2>
         <div class="tech-list">
-          <div class="tech" *ngFor="let tech of profileData.technologies.frontend">
-            <img [src]="tech.icon" [alt]="tech.name" />
-            <span>{{ tech.name }}</span>
-          </div>
+          @for (tech of profileData.technologies.frontend; track tech) {
+            <div class="tech">
+              <img [src]="tech.icon" [alt]="tech.name" />
+              <span>{{ tech.name }}</span>
+            </div>
+          }
         </div>
       </section>
 
@@ -104,10 +112,12 @@
       <section class="card skills">
         <h2>Herramientas</h2>
         <div class="tech-list">
-          <div class="tech" *ngFor="let tech of profileData.technologies.tools">
-            <img [src]="tech.icon" [alt]="tech.name" />
-            <span>{{ tech.name }}</span>
-          </div>
+          @for (tech of profileData.technologies.tools; track tech) {
+            <div class="tech">
+              <img [src]="tech.icon" [alt]="tech.name" />
+              <span>{{ tech.name }}</span>
+            </div>
+          }
         </div>
       </section>
     </div>
@@ -137,6 +147,8 @@
 </footer>
 
 <!-- Scroll to top button -->
-<button *ngIf="showScrollTop" (click)="scrollTop()" class="scroll-top" title="Volver arriba">
-  <i class="fa-solid fa-arrow-up"></i>
-</button>
+@if (showScrollTop) {
+  <button (click)="scrollTop()" class="scroll-top" title="Volver arriba">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+}
