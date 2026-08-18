@@ -21,66 +21,80 @@
 
   <!-- Content -->
   <main class="container">
-    <div *ngIf="loadingProjects" class="loading-projects">
-      <div class="spinner-large"></div>
-      <p>Buscando proyectos con GitHub Pages...</p>
-    </div>
-
-    <div *ngIf="!loadingProjects && githubPagesProjects.length === 0" class="no-projects">
-      <i class="fa-solid fa-folder-open"></i>
-      <h2>No se encontraron proyectos</h2>
-      <p>No hay repositorios con GitHub Pages activo en este momento.</p>
-      <a routerLink="/" class="btn primary">
-        <i class="fa-solid fa-home"></i> Volver al inicio
-      </a>
-    </div>
-
-    <div *ngIf="!loadingProjects && githubPagesProjects.length > 0" class="projects-grid">
-      <div class="project-card" *ngFor="let project of githubPagesProjects">
-        <div class="project-image">
-          <img [src]="project.repoUrl.replace('github.com', 'opengraph.githubassets.com/1') + '/' + project.name"
-               [alt]="project.name"
-               (error)="onImageError($event, project)">
-        </div>
-
-        <div class="project-content">
-          <div class="project-header">
-            <h3>{{ project.name }}</h3>
-            <div class="project-meta">
-              <span class="language" *ngIf="project.language">
-                <i class="fa-solid fa-code"></i> {{ project.language }}
-              </span>
-              <span class="stars" *ngIf="project.stars > 0">
-                <i class="fa-solid fa-star"></i> {{ project.stars }}
-              </span>
-              <span class="forks" *ngIf="project.forks > 0">
-                <i class="fa-solid fa-code-branch"></i> {{ project.forks }}
-              </span>
-            </div>
-          </div>
-
-          <p class="project-description">{{ project.description }}</p>
-
-          <div class="project-topics" *ngIf="project.topics.length > 0">
-            <span class="topic" *ngFor="let topic of project.topics">{{ topic }}</span>
-          </div>
-
-          <div class="project-links">
-            <a [href]="project.pagesUrl" target="_blank" rel="noopener" class="project-btn live">
-              <i class="fa-solid fa-globe"></i> Ver Demo
-            </a>
-            <a [href]="project.repoUrl" target="_blank" rel="noopener" class="project-btn repo">
-              <i class="fa-brands fa-github"></i> Código
-            </a>
-          </div>
-        </div>
+    @if (loadingProjects) {
+      <div class="loading-projects">
+        <div class="spinner-large"></div>
+        <p>Buscando proyectos con GitHub Pages...</p>
       </div>
+    }
+
+    @if (!loadingProjects && githubPagesProjects.length === 0) {
+      <div class="no-projects">
+        <i class="fa-solid fa-folder-open"></i>
+        <h2>No se encontraron proyectos</h2>
+        <p>No hay repositorios con GitHub Pages activo en este momento.</p>
+        <a routerLink="/" class="btn primary">
+          <i class="fa-solid fa-home"></i> Volver al inicio
+        </a>
+      </div>
+    }
+
+    @if (!loadingProjects && githubPagesProjects.length > 0) {
+      <div class="projects-grid">
+        @for (project of githubPagesProjects; track project) {
+          <div class="project-card">
+            <div class="project-image">
+              <img [src]="project.repoUrl.replace('github.com', 'opengraph.githubassets.com/1') + '/' + project.name"
+                [alt]="project.name"
+                (error)="onImageError($event, project)">
+              </div>
+              <div class="project-content">
+                <div class="project-header">
+                  <h3>{{ project.name }}</h3>
+                  <div class="project-meta">
+                    @if (project.language) {
+                      <span class="language">
+                        <i class="fa-solid fa-code"></i> {{ project.language }}
+                      </span>
+                    }
+                    @if (project.stars > 0) {
+                      <span class="stars">
+                        <i class="fa-solid fa-star"></i> {{ project.stars }}
+                      </span>
+                    }
+                    @if (project.forks > 0) {
+                      <span class="forks">
+                        <i class="fa-solid fa-code-branch"></i> {{ project.forks }}
+                      </span>
+                    }
+                  </div>
+                </div>
+                <p class="project-description">{{ project.description }}</p>
+                @if (project.topics.length > 0) {
+                  <div class="project-topics">
+                    @for (topic of project.topics; track topic) {
+                      <span class="topic">{{ topic }}</span>
+                    }
+                  </div>
+                }
+                <div class="project-links">
+                  <a [href]="project.pagesUrl" target="_blank" rel="noopener" class="project-btn live">
+                    <i class="fa-solid fa-globe"></i> Ver Demo
+                  </a>
+                  <a [href]="project.repoUrl" target="_blank" rel="noopener" class="project-btn repo">
+                    <i class="fa-brands fa-github"></i> Código
+                  </a>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+      <br>
+        <div class="center">
+          <a routerLink="/" class="btn primary">
+            <i class="fa-solid fa-home"></i> Volver al inicio
+          </a>
+        </div>
+      </main>
     </div>
-    <br>
-    <div class="center">
-    <a routerLink="/" class="btn primary">
-      <i class="fa-solid fa-home"></i> Volver al inicio
-    </a>
-    </div>
-  </main>
-</div>
