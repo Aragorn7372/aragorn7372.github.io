@@ -7,6 +7,12 @@
       "matchDatasources": ["docker"],
       "groupName": "imagenes base docker",
       "commitMessageAction": "actualizar"
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchPackagePatterns": ["^@angular/"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
     }
   ],
   "prHourlyLimit": 4,
