@@ -1,0 +1,19 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":enableVulnerabilityAlerts"],
+  "baseBranches": ["main"],
+  "schedule": ["0 6 1,15 * *"],
+  "docker": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "groupName": "imagenes base docker",
+      "commitMessageAction": "actualizar"
+    }
+  ],
+  "prHourlyLimit": 4,
+  "automerge": false,
+  "platformAutomerge": false
+}
