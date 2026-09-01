@@ -2,7 +2,7 @@
 # STAGE 1: Build del CV
 # ============================================
 # node:22-alpine (pin 2026-08-04)
-FROM node:24-alpine@sha256:d32cdf619f63fe0471182d08996dd516c6275bb5fd31ae06e55a570bd9e1ad43 AS builder
+FROM node:24-alpine@sha256:e67514e5d0f6c46656005e1b693b2ec9d52e80b641307de684d4a015ba7a4eaf AS builder
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ RUN npm run build
 # STAGE 2: Servir con Nginx
 # ============================================
 # nginx:alpine (pin 2026-08-04)
-FROM nginx:alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470c1752 AS htmlblog
+FROM nginx:alpine@sha256:db35bfc6b2951e7f8a72db5db120288c127ffaeeb4a6d4b95a26fead017d5913 AS htmlblog
 
 # Eliminar la web por defecto
 RUN rm -rf /usr/share/nginx/html/*
