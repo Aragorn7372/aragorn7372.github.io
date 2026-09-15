@@ -5,3 +5,6 @@
   X-XSS-Protection: 1; mode=block
   Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
+  # Este fichero solo lo interpreta Netlify (el espejo): le dice a Google
+  # que no indexe la copia. En cv.victor-service.dev manda el canonical.
+  X-Robots-Tag: noindex, nofollow
