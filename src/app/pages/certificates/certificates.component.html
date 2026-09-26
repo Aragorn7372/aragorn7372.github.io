@@ -20,7 +20,7 @@
       <!-- Barra de búsqueda y filtros -->
       <div class="search-bar">
         <div class="search-input-wrapper">
-          <i class="fa-solid fa-search"></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
           <input
             type="text"
             [(ngModel)]="searchTerm"
@@ -55,7 +55,7 @@
           <h2>No se encontraron certificados</h2>
           <p>No hay certificados disponibles en este momento.</p>
           <a routerLink="/" class="btn primary">
-            <i class="fa-solid fa-home"></i> Volver al inicio
+            <i class="fa-solid fa-house"></i> Volver al inicio
           </a>
         </div>
       }
@@ -63,11 +63,11 @@
       <!-- No results -->
       @if (!loading && certificates.length > 0 && filteredCertificates.length === 0) {
         <div class="no-results">
-          <i class="fa-solid fa-search"></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
           <h2>No se encontraron resultados</h2>
           <p>Intenta con otro término de búsqueda</p>
           <button (click)="searchTerm = ''; filterCertificates()" class="btn ghost">
-            <i class="fa-solid fa-times"></i> Limpiar búsqueda
+            <i class="fa-solid fa-xmark"></i> Limpiar búsqueda
           </button>
         </div>
       }

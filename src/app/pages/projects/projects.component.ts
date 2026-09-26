@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { GithubService, GitHubPagesProject } from '../../services/github.service';
@@ -8,6 +8,7 @@ import { GithubService, GitHubPagesProject } from '../../services/github.service
   standalone: true,
   imports: [RouterModule],
   templateUrl: './projects.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {

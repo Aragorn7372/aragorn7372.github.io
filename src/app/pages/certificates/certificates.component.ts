@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +9,7 @@ import { CertificatesService, Certificate } from '../../services/certificates.se
   standalone: true,
   imports: [RouterModule, FormsModule],
   templateUrl: './certificates.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./certificates.component.css']
 })
 export class CertificatesComponent implements OnInit {
