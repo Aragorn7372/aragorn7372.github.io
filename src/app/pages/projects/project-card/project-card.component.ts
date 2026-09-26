@@ -8,6 +8,9 @@ export interface LanguageSlice {
   color: string;
 }
 
+/** Topics visibles antes de resumir el resto en "+N" (evita tarjetas desproporcionadamente altas). */
+const MAX_TOPICS = 8;
+
 /** A partir de este número de lenguajes se agrupan los menores en "Otros". */
 const MAX_LANGUAGES = 6;
 const OTHERS_COLOR = '#8b949e';
@@ -17,7 +20,7 @@ const OTHERS_COLOR = '#8b949e';
   standalone: true,
   templateUrl: './project-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block' }
+  host: { class: 'block h-full' }
 })
 export class ProjectCardComponent {
   readonly project = input.required<Project>();
@@ -45,6 +48,9 @@ export class ProjectCardComponent {
     const p = this.project();
     return p.stars > 0 || p.forks > 0 || p.commits > 0;
   });
+
+  readonly visibleTopics = computed(() => this.project().topics.slice(0, MAX_TOPICS));
+  readonly hiddenTopics = computed(() => Math.max(0, this.project().topics.length - MAX_TOPICS));
 
   readonly initial = computed(() => (this.project().owner || this.project().name).charAt(0).toUpperCase());
 }

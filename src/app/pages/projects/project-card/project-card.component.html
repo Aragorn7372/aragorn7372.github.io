@@ -1,5 +1,5 @@
 @let p = project();
-<article class="card border border-base-300 bg-base-200 transition hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl">
+<article class="card h-full border border-base-300 bg-base-200 transition hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl">
   <div class="card-body gap-5">
     <!-- Cabecera: avatar, nombre y propietario -->
     <header class="flex items-start gap-3">
@@ -22,7 +22,8 @@
     </header>
 
     @if (p.description) {
-      <p class="text-sm leading-relaxed text-base-content/80">{{ p.description }}</p>
+      <!-- grow-0: daisyUI estira los <p> de card-body y desplazaría el resto del contenido -->
+      <p class="line-clamp-3 grow-0 text-sm leading-relaxed text-base-content/80" [title]="p.description">{{ p.description }}</p>
     }
 
     <!-- Lenguajes: lista con su color y donut -->
@@ -75,15 +76,18 @@
       <section class="flex flex-col gap-2">
         <h4 class="text-xs font-semibold uppercase tracking-wider text-base-content/60">Topics</h4>
         <div class="flex flex-wrap gap-1.5">
-          @for (topic of p.topics; track topic) {
+          @for (topic of visibleTopics(); track topic) {
             <span class="badge badge-outline badge-sm border-base-content/25 text-base-content/75">{{ topic }}</span>
+          }
+          @if (hiddenTopics() > 0) {
+            <span class="badge badge-ghost badge-sm" [title]="p.topics.join(', ')">+{{ hiddenTopics() }}</span>
           }
         </div>
       </section>
     }
 
-    <!-- Acciones -->
-    <footer class="flex gap-2 border-t border-base-300 pt-4">
+    <!-- Acciones: siempre al pie, alineadas entre tarjetas de la misma fila -->
+    <footer class="mt-auto flex gap-2 border-t border-base-300 pt-4">
       <a [href]="p.url" target="_blank" rel="noopener" class="btn btn-sm flex-1 whitespace-nowrap"
         [class.btn-outline]="!!p.pagesUrl" [class.btn-primary]="!p.pagesUrl">
         <i class="fa-brands fa-github"></i> Ver repositorio <span class="hidden sm:inline"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>

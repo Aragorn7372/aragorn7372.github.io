@@ -36,7 +36,7 @@
                     <span class="h-10 w-10 rounded-full bg-base-300"></span>
                     <div class="flex flex-1 flex-col gap-1"><span>Nombre del proyecto</span><span class="text-sm">propietario</span></div>
                   </div>
-                  <p class="text-sm">Descripción breve del proyecto en una o dos líneas de texto.</p>
+                  <p class="grow-0 text-sm">Descripción breve del proyecto en una o dos líneas de texto.</p>
                   <div class="flex items-center gap-4">
                     <div class="flex flex-1 flex-col gap-1.5 text-sm"><span>Lenguaje 60%</span><span>Lenguaje 30%</span><span>Lenguaje 10%</span></div>
                     <span class="h-24 w-24 rounded-full bg-base-300"></span>
@@ -65,10 +65,10 @@
     }
 
     @if (!loadingProjects && projects.length > 0) {
-      <!-- Mosaico en columnas: cada tarjeta mantiene su altura natural aunque le falten campos -->
-      <div class="columns-1 gap-6 md:columns-2 2xl:columns-3">
+      <!-- Rejilla con filas de igual altura: las acciones quedan alineadas al pie de cada fila -->
+      <div class="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
         @for (project of projects; track project.url; let i = $index) {
-          <app-project-card class="fade-up mb-6 break-inside-avoid" [project]="project" [style.animation-delay]="(i * 0.06) + 's'" />
+          <app-project-card class="fade-up" [project]="project" [style.animation-delay]="(i * 0.06) + 's'" />
         }
       </div>
     }
