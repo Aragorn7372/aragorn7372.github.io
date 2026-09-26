@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
+import { environment } from '../../environments/enviroment';
 
 export interface Certificate {
   titulo: string;
@@ -13,13 +14,13 @@ export interface Certificate {
   providedIn: 'root'
 })
 export class CertificatesService {
-  private apiUrl = 'https://script.google.com/macros/s/AKfycbyFOLWuRO-DALwI0-chwcHYnqBioRTGDErFUhhUEV5XvpZ8oTuvoM9GV1Bn4bHqs7Qj/exec';
+  private apiUrl = `${environment.apiUrl}/certificates`;
   private certificatesCache$?: Observable<Certificate[]>;
 
   constructor(private http: HttpClient) {}
 
   /**
-   * Obtiene todos los certificados desde Google Apps Script
+   * Obtiene todos los certificados desde Portfolio-api
    */
   getCertificates(): Observable<Certificate[]> {
     if (this.certificatesCache$) {

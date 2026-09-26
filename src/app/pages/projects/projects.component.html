@@ -1,100 +1,82 @@
-<div class="projects-page">
+<div class="min-h-screen pb-16">
   <!-- Header -->
-  <header class="projects-header">
-    <div class="container">
-      <a routerLink="/" class="back-btn">
-        <span class="back-icon">
+  <header class="wave-band">
+    <img class="wave-img" [src]="bannerSrc" alt="" aria-hidden="true" />
+    <div class="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pt-8 pb-12 sm:px-6">
+      <a routerLink="/" class="btn btn-ghost h-auto self-start gap-3 py-2">
+        <span class="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-content">
           <i class="fa-solid fa-arrow-left"></i>
         </span>
-        <span class="back-text">
-          <span class="back-label">Volver</span>
-          <span class="back-sublabel">Inicio</span>
+        <span class="flex flex-col items-start leading-tight">
+          <span class="font-semibold">Volver</span>
+          <span class="text-xs text-base-content/60">Inicio</span>
         </span>
       </a>
 
-      <div class="header-content">
-        <h1>Mis Proyectos Publicados</h1>
-        <p class="subtitle">Proyectos desplegados con GitHub Pages</p>
+      <div class="fade-up flex flex-col gap-2 text-center">
+        <h1 class="text-gradient text-3xl font-extrabold sm:text-4xl lg:text-5xl">Mis Proyectos</h1>
+        <p class="text-base-content/70">Repositorios y proyectos publicados en GitHub</p>
       </div>
     </div>
   </header>
 
   <!-- Content -->
-  <main class="container">
+  <main class="mx-auto max-w-[1400px] px-4 sm:px-6">
     @if (loadingProjects) {
-      <div class="loading-projects">
-        <div class="spinner-large"></div>
-        <p>Buscando proyectos con GitHub Pages...</p>
+      <div class="flex flex-col gap-4">
+        <p class="text-center text-sm text-base-content/60">Cargando proyectos...</p>
+        <phantom-ui loading animation="shimmer" loading-label="Cargando proyectos"
+          shimmer-color="color-mix(in oklab, var(--color-primary) 30%, transparent)"
+          background-color="var(--color-base-300)">
+          <div class="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
+            @for (placeholder of [1, 2, 3, 4, 5, 6]; track placeholder) {
+              <div class="card border border-base-300 bg-base-200">
+                <div class="card-body gap-5">
+                  <div class="flex items-center gap-3">
+                    <span class="h-10 w-10 rounded-full bg-base-300"></span>
+                    <div class="flex flex-1 flex-col gap-1"><span>Nombre del proyecto</span><span class="text-sm">propietario</span></div>
+                  </div>
+                  <p class="text-sm">Descripción breve del proyecto en una o dos líneas de texto.</p>
+                  <div class="flex items-center gap-4">
+                    <div class="flex flex-1 flex-col gap-1.5 text-sm"><span>Lenguaje 60%</span><span>Lenguaje 30%</span><span>Lenguaje 10%</span></div>
+                    <span class="h-24 w-24 rounded-full bg-base-300"></span>
+                  </div>
+                  <div class="flex gap-2"><span class="badge">Tecnología</span><span class="badge">Tecnología</span></div>
+                  <div class="flex gap-2 border-t border-base-300 pt-4"><span class="btn btn-sm flex-1">Ver repositorio</span><span class="btn btn-sm flex-1">Pages</span></div>
+                </div>
+              </div>
+            }
+          </div>
+        </phantom-ui>
       </div>
     }
 
-    @if (!loadingProjects && githubPagesProjects.length === 0) {
-      <div class="no-projects">
-        <i class="fa-solid fa-folder-open"></i>
-        <h2>No se encontraron proyectos</h2>
-        <p>No hay repositorios con GitHub Pages activo en este momento.</p>
-        <a routerLink="/" class="btn primary">
-          <i class="fa-solid fa-house"></i> Volver al inicio
-        </a>
-      </div>
-    }
-
-    @if (!loadingProjects && githubPagesProjects.length > 0) {
-      <div class="projects-grid">
-        @for (project of githubPagesProjects; track project) {
-          <div class="project-card">
-            <div class="project-image">
-              <img [src]="project.repoUrl.replace('github.com', 'opengraph.githubassets.com/1') + '/' + project.name"
-                [alt]="project.name"
-                (error)="onImageError($event, project)">
-              </div>
-              <div class="project-content">
-                <div class="project-header">
-                  <h3>{{ project.name }}</h3>
-                  <div class="project-meta">
-                    @if (project.language) {
-                      <span class="language">
-                        <i class="fa-solid fa-code"></i> {{ project.language }}
-                      </span>
-                    }
-                    @if (project.stars > 0) {
-                      <span class="stars">
-                        <i class="fa-solid fa-star"></i> {{ project.stars }}
-                      </span>
-                    }
-                    @if (project.forks > 0) {
-                      <span class="forks">
-                        <i class="fa-solid fa-code-branch"></i> {{ project.forks }}
-                      </span>
-                    }
-                  </div>
-                </div>
-                <p class="project-description">{{ project.description }}</p>
-                @if (project.topics.length > 0) {
-                  <div class="project-topics">
-                    @for (topic of project.topics; track topic) {
-                      <span class="topic">{{ topic }}</span>
-                    }
-                  </div>
-                }
-                <div class="project-links">
-                  <a [href]="project.pagesUrl" target="_blank" rel="noopener" class="project-btn live">
-                    <i class="fa-solid fa-globe"></i> Ver Demo
-                  </a>
-                  <a [href]="project.repoUrl" target="_blank" rel="noopener" class="project-btn repo">
-                    <i class="fa-brands fa-github"></i> Código
-                  </a>
-                </div>
-              </div>
-            </div>
-          }
-        </div>
-      }
-      <br>
-        <div class="center">
-          <a routerLink="/" class="btn primary">
+    @if (!loadingProjects && projects.length === 0) {
+      <div class="fade-up card mx-auto max-w-lg border border-base-300 bg-base-200">
+        <div class="card-body items-center gap-3 text-center">
+          <i class="fa-solid fa-folder-open text-5xl text-primary"></i>
+          <h2 class="card-title">No se encontraron proyectos</h2>
+          <p class="text-base-content/70">No hay proyectos disponibles en este momento.</p>
+          <a routerLink="/" class="btn btn-primary mt-2">
             <i class="fa-solid fa-house"></i> Volver al inicio
           </a>
         </div>
-      </main>
+      </div>
+    }
+
+    @if (!loadingProjects && projects.length > 0) {
+      <!-- Mosaico en columnas: cada tarjeta mantiene su altura natural aunque le falten campos -->
+      <div class="columns-1 gap-6 md:columns-2 2xl:columns-3">
+        @for (project of projects; track project.url; let i = $index) {
+          <app-project-card class="fade-up mb-6 break-inside-avoid" [project]="project" [style.animation-delay]="(i * 0.06) + 's'" />
+        }
+      </div>
+    }
+
+    <div class="mt-10 flex justify-center">
+      <a routerLink="/" class="btn btn-primary">
+        <i class="fa-solid fa-house"></i> Volver al inicio
+      </a>
     </div>
+  </main>
+</div>

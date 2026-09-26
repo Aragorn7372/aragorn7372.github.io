@@ -1,0 +1,98 @@
+@let p = project();
+<article class="card border border-base-300 bg-base-200 transition hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl">
+  <div class="card-body gap-5">
+    <!-- Cabecera: avatar, nombre y propietario -->
+    <header class="flex items-start gap-3">
+      @if (p.avatarUrl && !avatarFailed()) {
+        <img class="h-10 w-10 shrink-0 rounded-full ring-2 ring-primary/40" width="40" height="40"
+          [src]="p.avatarUrl" [alt]="p.owner" loading="lazy" decoding="async"
+          (error)="avatarFailed.set(true)" />
+      } @else {
+        <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/15 font-bold text-primary" aria-hidden="true">{{ initial() }}</span>
+      }
+      <div class="min-w-0 flex-1">
+        <h3 class="truncate text-lg font-bold" [title]="p.name">{{ p.name }}</h3>
+        @if (p.owner) {
+          <p class="truncate text-sm text-base-content/60">{{ p.owner }}</p>
+        }
+      </div>
+      <a [href]="p.url" target="_blank" rel="noopener" class="link link-hover shrink-0 text-sm text-primary">
+        GitHub <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+      </a>
+    </header>
+
+    @if (p.description) {
+      <p class="text-sm leading-relaxed text-base-content/80">{{ p.description }}</p>
+    }
+
+    <!-- Lenguajes: lista con su color y donut -->
+    @if (languages().length > 0) {
+      <section class="flex flex-col gap-2">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-base-content/60">Lenguajes</h4>
+        <div class="flex items-center gap-4">
+          <ul class="flex min-w-0 flex-1 flex-col gap-1.5 text-sm">
+            @for (lang of languages(); track lang.name) {
+              <li class="flex items-center gap-2">
+                <span class="h-2.5 w-2.5 shrink-0 rounded-full" [style.background-color]="lang.color"></span>
+                <span class="min-w-0 flex-1 truncate">{{ lang.name }}</span>
+                <span class="tabular-nums text-base-content/70">{{ lang.percent.toFixed(1) }}%</span>
+              </li>
+            }
+          </ul>
+          <div class="donut h-20 w-20 shrink-0 rounded-full sm:h-24 sm:w-24" [style.background]="donut()" role="img"
+            [attr.aria-label]="'Reparto de lenguajes de ' + p.name"></div>
+        </div>
+      </section>
+    }
+
+    <!-- Estadísticas: solo las que no son 0 -->
+    @if (hasStats()) {
+      <div class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-base-content/80">
+        @if (p.stars > 0) {
+          <span title="Estrellas"><i class="fa-solid fa-star text-primary"></i> {{ p.stars }}</span>
+        }
+        @if (p.forks > 0) {
+          <span title="Forks"><i class="fa-solid fa-code-fork text-primary"></i> {{ p.forks }}</span>
+        }
+        @if (p.commits > 0) {
+          <span title="Commits"><i class="fa-solid fa-code-commit text-primary"></i> {{ p.commits }} commits</span>
+        }
+      </div>
+    }
+
+    @if (p.technologies.length > 0) {
+      <section class="flex flex-col gap-2">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-base-content/60">Tecnologías</h4>
+        <div class="flex flex-wrap gap-1.5">
+          @for (tech of p.technologies; track tech) {
+            <span class="badge badge-soft badge-primary">{{ tech }}</span>
+          }
+        </div>
+      </section>
+    }
+
+    @if (p.topics.length > 0) {
+      <section class="flex flex-col gap-2">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-base-content/60">Topics</h4>
+        <div class="flex flex-wrap gap-1.5">
+          @for (topic of p.topics; track topic) {
+            <span class="badge badge-outline badge-sm border-base-content/25 text-base-content/75">{{ topic }}</span>
+          }
+        </div>
+      </section>
+    }
+
+    <!-- Acciones -->
+    <footer class="flex gap-2 border-t border-base-300 pt-4">
+      <a [href]="p.url" target="_blank" rel="noopener" class="btn btn-sm flex-1 whitespace-nowrap"
+        [class.btn-outline]="!!p.pagesUrl" [class.btn-primary]="!p.pagesUrl">
+        <i class="fa-brands fa-github"></i> Ver repositorio <span class="hidden sm:inline"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>
+      </a>
+      @if (p.pagesUrl) {
+        <a [href]="p.pagesUrl" target="_blank" rel="noopener" class="btn btn-primary btn-sm flex-1 whitespace-nowrap">
+          <i class="fa-solid fa-globe"></i> Pages <span class="hidden sm:inline"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>
+        </a>
+      }
+    </footer>
+  </div>
+</article>

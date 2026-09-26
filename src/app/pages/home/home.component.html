@@ -1,154 +1,170 @@
 <!-- Banner -->
-<header class="banner">
-  <img class="banner-wave" [src]="dark ? 'banner-dark.svg' : 'banner-light.svg'" alt="" aria-hidden="true" />
-  <div class="banner-overlay"></div>
-  <div class="container header-inner">
-      <div class="profile">
-        <img class="avatar" [src]="'https://github.com/'+githubUser+'.png'" [alt]="'Avatar de ' + fullName" />
-        <div class="profile-info">
-          <h1 class="name">Víctor Marín Escribano / Aragorn7372</h1>
-          <p class="subtitle">Desarrollador full stack • Titulado en el IES Luis Vives</p>
-          <div class="badges">
-            <span class="badge">Backend • Kotlin & Java</span>
-            <span class="badge">Backend • C# ASP.NET</span>
-            <span class="badge">Frontend • Angular & TypeScript</span>
-          </div>
+<header class="wave-band banner">
+  <img class="wave-img" [src]="bannerSrc" alt="" aria-hidden="true" />
+  <div class="mx-auto flex w-full max-w-[1400px] flex-wrap items-center justify-between gap-5 px-4 py-6 sm:px-6">
+    <div class="fade-up flex min-w-0 flex-col items-center gap-4 text-center sm:flex-row sm:gap-5 sm:text-left">
+      <div class="avatar">
+        <div class="w-20 rounded-box ring-2 ring-primary ring-offset-2 ring-offset-base-100 sm:w-24">
+          <img [src]="'https://github.com/'+githubUser+'.png'" [alt]="'Avatar de ' + fullName" />
         </div>
       </div>
+      <div class="flex min-w-0 flex-col gap-1.5">
+        <h1 class="text-gradient text-xl font-extrabold leading-tight sm:text-3xl">Víctor Marín Escribano / Aragorn7372</h1>
+        <p class="text-sm text-base-content/75 sm:text-base">Desarrollador full stack • Titulado en el IES Luis Vives</p>
+        <div class="flex flex-wrap justify-center gap-2 sm:justify-start">
+          <span class="badge badge-soft badge-primary h-auto min-h-6 whitespace-normal py-0.5">Backend • Kotlin & Java</span>
+          <span class="badge badge-soft badge-primary h-auto min-h-6 whitespace-normal py-0.5">Backend • C# ASP.NET</span>
+          <span class="badge badge-soft badge-primary h-auto min-h-6 whitespace-normal py-0.5">Frontend • Angular & TypeScript</span>
+        </div>
+      </div>
+    </div>
 
-      <div class="actions">
-        <a routerLink="/projects" class="btn primary">
+    <!-- Botones en dos grupos: principales y secundarios. En móvil se reparten en rejilla a ancho completo -->
+    <div class="fade-up flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+      <div class="grid grid-cols-2 gap-2 sm:flex">
+        <a routerLink="/projects" class="btn btn-primary whitespace-nowrap max-sm:px-3 max-sm:text-[0.8rem]">
           <i class="fa-solid fa-folder-open"></i> Ver Proyectos
         </a>
-        <a routerLink="/certificates" class="btn primary">
+        <a routerLink="/certificates" class="btn btn-primary whitespace-nowrap max-sm:px-3 max-sm:text-[0.8rem]">
           <i class="fa-solid fa-certificate"></i> Certificados
         </a>
-        <button (click)="downloadCV()" class="btn ghost">
+      </div>
+      <div class="grid grid-cols-[1fr_1fr_auto] gap-2 sm:flex">
+        <button (click)="downloadCV()" class="btn btn-ghost border-base-content/20 whitespace-nowrap max-sm:px-3 max-sm:text-[0.8rem]">
           <i class="fa-solid fa-file-pdf"></i> Descargar CV
         </button>
-        <a class="btn ghost" [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener">
+        <a class="btn btn-ghost border-base-content/20 whitespace-nowrap max-sm:px-3 max-sm:text-[0.8rem]" [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener">
           <i class="fa-brands fa-github"></i> GitHub
         </a>
-        <button id="themeToggle" (click)="toggleTheme()" class="btn icon-only" title="Cambiar tema">
+        <button id="themeToggle" (click)="toggleTheme()" class="btn btn-square btn-ghost theme-toggle border-base-content/20" title="Cambiar tema">
           <i [ngClass]="dark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"></i>
         </button>
       </div>
     </div>
+  </div>
 </header>
 
-<main class="container main-grid">
+<main class="mx-auto grid w-full max-w-[1400px] items-start gap-6 px-4 pt-6 pb-16 sm:px-6 lg:grid-cols-2">
   <!-- Columna Izquierda -->
-  <div class="left-column">
+  <div class="flex flex-col gap-6">
     <!-- Sobre mí -->
-    <section class="card about">
-      <h2>Sobre mí</h2>
-      <p>{{ profileData.about }}</p>
+    <section class="fade-up card border border-base-300 bg-base-200">
+      <div class="card-body">
+        <h2 class="card-title text-heading"><i class="fa-solid fa-user"></i> Sobre mí</h2>
+        <p class="leading-relaxed">{{ profileData.about }}</p>
+      </div>
     </section>
 
     <!-- Actualmente aprendiendo -->
-    <section class="card learning">
-      <h2>Actualmente aprendiendo</h2>
-      <ul class="learn">
-        @for (item of profileData.learning; track item) {
-          <li>{{ item }}</li>
-        }
-      </ul>
+    <section class="fade-up card border border-base-300 bg-base-200">
+      <div class="card-body">
+        <h2 class="card-title text-heading"><i class="fa-solid fa-book-open"></i> Actualmente aprendiendo</h2>
+        <ul class="flex flex-col gap-2">
+          @for (item of profileData.learning; track item) {
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-chevron-right mt-1.5 text-xs text-primary"></i>
+              <span>{{ item }}</span>
+            </li>
+          }
+        </ul>
+      </div>
     </section>
 
     <!-- Estadísticas de GitHub -->
-    <section class="card stats">
-      <h2>Estadísticas de GitHub</h2>
-      <div class="stats-grid">
-        <img [src]=[githubStatsUrl] [alt]="'Estadísticas de GitHub de ' + githubUser" />
-        <img [src]=[topLangsUrl] [alt]="'Lenguajes más usados de ' + githubUser" />
-        <img [src]=[streakUrl] [alt]="'Racha de commits de ' + githubUser" />
+    <section class="fade-up card border border-base-300 bg-base-200">
+      <div class="card-body">
+        <h2 class="card-title text-heading"><i class="fa-solid fa-chart-simple"></i> Estadísticas de GitHub</h2>
+        <div class="flex flex-col gap-4">
+          <img class="w-full rounded-box" [src]="githubStatsUrl" [alt]="'Estadísticas de GitHub de ' + githubUser" />
+          <img class="w-full rounded-box" [src]="topLangsUrl" [alt]="'Lenguajes más usados de ' + githubUser" />
+          <img class="w-full rounded-box" [src]="streakUrl" [alt]="'Racha de commits de ' + githubUser" />
+        </div>
       </div>
     </section>
   </div>
 
   <!-- Columna Derecha -->
-  <div class="right-column">
+  <div class="flex flex-col gap-6">
     <!-- Grid 2x2 de tecnologías -->
-    <div class="tech-grid-2x2">
+    <div class="grid gap-4 sm:grid-cols-2">
       <!-- Backend -->
-      <section class="card skills">
-        <h2>Backend</h2>
-        <div class="tech-list">
-          @for (tech of profileData.technologies.backend; track tech) {
-            <div class="tech">
-              <img [src]="tech.icon" [alt]="tech.name" />
-              <span>{{ tech.name }}</span>
-            </div>
-          }
+      <section class="fade-up card border border-base-300 bg-base-200">
+        <div class="card-body p-5">
+          <h2 class="card-title text-base text-heading"><i class="fa-solid fa-server"></i> Backend</h2>
+          <ng-container *ngTemplateOutlet="techList; context: { $implicit: profileData.technologies.backend }"></ng-container>
         </div>
       </section>
 
       <!-- Bases de datos -->
-      <section class="card skills">
-        <h2>Bases de Datos</h2>
-        <div class="tech-list">
-          @for (tech of profileData.technologies.databases; track tech) {
-            <div class="tech">
-              <img [src]="tech.icon" [alt]="tech.name" />
-              <span>{{ tech.name }}</span>
-            </div>
-          }
+      <section class="fade-up card border border-base-300 bg-base-200">
+        <div class="card-body p-5">
+          <h2 class="card-title text-base text-heading"><i class="fa-solid fa-database"></i> Bases de Datos</h2>
+          <ng-container *ngTemplateOutlet="techList; context: { $implicit: profileData.technologies.databases }"></ng-container>
         </div>
       </section>
+
       <!-- Frontend -->
-      <section class="card skills">
-        <h2>Frontend</h2>
-        <div class="tech-list">
-          @for (tech of profileData.technologies.frontend; track tech) {
-            <div class="tech">
-              <img [src]="tech.icon" [alt]="tech.name" />
-              <span>{{ tech.name }}</span>
-            </div>
-          }
+      <section class="fade-up card border border-base-300 bg-base-200">
+        <div class="card-body p-5">
+          <h2 class="card-title text-base text-heading"><i class="fa-solid fa-palette"></i> Frontend</h2>
+          <ng-container *ngTemplateOutlet="techList; context: { $implicit: profileData.technologies.frontend }"></ng-container>
         </div>
       </section>
 
       <!-- Herramientas -->
-      <section class="card skills">
-        <h2>Herramientas</h2>
-        <div class="tech-list">
-          @for (tech of profileData.technologies.tools; track tech) {
-            <div class="tech">
-              <img [src]="tech.icon" [alt]="tech.name" />
-              <span>{{ tech.name }}</span>
-            </div>
-          }
+      <section class="fade-up card border border-base-300 bg-base-200">
+        <div class="card-body p-5">
+          <h2 class="card-title text-base text-heading"><i class="fa-solid fa-toolbox"></i> Herramientas</h2>
+          <ng-container *ngTemplateOutlet="techList; context: { $implicit: profileData.technologies.tools }"></ng-container>
         </div>
       </section>
     </div>
 
     <!-- Contacto -->
-    <section class="card contact">
-      <h2>Contacto</h2>
-      <div class="contact-links">
-        <a [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener" class="contact-btn text-color">
-          <i class="fa-brands fa-github text-color"> </i> GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/víctor-marín-escribano-44b2b639b/" target="_blank" rel="noopener" class="contact-btn text-color">
-          <i class="fa-brands fa-linkedin text-color"> </i> LinkedIn
-        </a>
+    <section class="fade-up card border border-base-300 bg-base-200">
+      <div class="card-body">
+        <h2 class="card-title text-heading"><i class="fa-solid fa-paper-plane"></i> Contacto</h2>
+        <div class="flex flex-wrap gap-3">
+          <a [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener" class="btn btn-outline btn-primary">
+            <i class="fa-brands fa-github"> </i> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/víctor-marín-escribano-44b2b639b/" target="_blank" rel="noopener" class="btn btn-outline btn-primary">
+            <i class="fa-brands fa-linkedin"> </i> LinkedIn
+          </a>
+        </div>
+        <p class="mt-2 border-l-4 border-primary pl-4 text-base-content/70"><em>"El código es poesía, y cada proyecto es una nueva historia"</em></p>
       </div>
-      <p class="quote"><em>"El código es poesía, y cada proyecto es una nueva historia"</em></p>
     </section>
   </div>
 </main>
 
+<ng-template #techList let-techs>
+  <div class="flex flex-col gap-2">
+    @for (tech of techs; track tech) {
+      <div class="tech flex items-center gap-3 rounded-field border border-base-300 bg-base-100 px-3 py-2">
+        <img class="h-7 w-7 shrink-0 rounded bg-white object-contain p-0.5" [src]="tech.icon" [alt]="tech.name" />
+        <span class="text-sm font-semibold">{{ tech.name }}</span>
+      </div>
+    }
+  </div>
+</ng-template>
+
 <!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <p>&copy; {{ year }} {{ fullName }}. Hecho con <i class="fa-solid fa-heart"></i> y Angular.</p>
-    <img [src]="'https://komarev.com/ghpvc/?username=' + githubUser + '&color=58A6FF&style=flat-square&label=Visitas+al+perfil'" alt="Contador de visitas" />
+<footer class="border-t border-base-300 bg-base-200">
+  <div class="mx-auto flex max-w-[1400px] flex-col items-center gap-3 px-4 py-6 text-center text-sm text-base-content/70 sm:px-6">
+    <p>&copy; {{ year }} {{ fullName }}. Hecho con <i class="fa-solid fa-heart text-primary"></i> y Angular.</p>
+    @if (visits() !== null) {
+      <div class="join text-xs font-semibold" title="Contador de visitas">
+        <span class="join-item bg-base-300 px-2 py-1 text-base-content">Visitas al perfil</span>
+        <span class="join-item bg-primary px-2 py-1 tabular-nums text-primary-content">{{ visits() }}</span>
+      </div>
+    }
   </div>
 </footer>
 
 <!-- Scroll to top button -->
 @if (showScrollTop) {
-  <button (click)="scrollTop()" class="scroll-top" title="Volver arriba">
+  <button (click)="scrollTop()" class="btn btn-circle btn-primary fixed bottom-6 right-6 z-50 shadow-lg" title="Volver arriba">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 }

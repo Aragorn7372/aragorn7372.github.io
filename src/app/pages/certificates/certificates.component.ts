@@ -1,13 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import '@aejkatappaja/phantom-ui';
 import { CertificatesService, Certificate } from '../../services/certificates.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-certificates',
   standalone: true,
   imports: [RouterModule, FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './certificates.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./certificates.component.css']
@@ -20,7 +23,11 @@ export class CertificatesComponent implements OnInit {
   sortBy: 'titulo' | 'fecha' = 'fecha';
   sortDirection: 'asc' | 'desc' = 'desc';
 
-  constructor(public certificatesService: CertificatesService) {}
+  constructor(public certificatesService: CertificatesService, private themeService: ThemeService) {}
+
+  get bannerSrc(): string {
+    return this.themeService.bannerSrc;
+  }
 
   ngOnInit(): void {
     this.loadCertificates();

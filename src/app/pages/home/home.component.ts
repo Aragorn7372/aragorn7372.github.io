@@ -1,6 +1,8 @@
-import { Component, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ThemeService } from '../../services/theme.service';
+import { VisitSessionService } from '../../services/visit-session.service';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +12,11 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   githubUser = 'Aragorn7372';
   fullName = 'Aragorn7372';
   year = new Date().getFullYear();
   bannerUrl = '';
-  dark = true;
   showScrollTop = false;
   githubStatsUrl = 'https://raw.githubusercontent.com/Aragorn7372/Aragorn7372/master/stats-images/general-stats.svg';
 
@@ -72,14 +73,17 @@ export class HomeComponent implements OnInit {
     }
   };
 
-  ngOnInit(): void {
-    const stored = localStorage.getItem('vm_theme');
-    if (stored) {
-      this.dark = stored === 'dark';
-    } else {
-      this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    this.applyTheme();
+  /** Total de visitas que devuelve Portfolio-api al registrar la visita. */
+  readonly visits = inject(VisitSessionService).visits;
+
+  constructor(private themeService: ThemeService) {}
+
+  get dark(): boolean {
+    return this.themeService.dark;
+  }
+
+  get bannerSrc(): string {
+    return this.themeService.bannerSrc;
   }
 
   downloadCV() {
@@ -93,15 +97,7 @@ export class HomeComponent implements OnInit {
   }
 
   toggleTheme() {
-    this.dark = !this.dark;
-    localStorage.setItem('vm_theme', this.dark ? 'dark' : 'light');
-    this.applyTheme();
-  }
-
-  private applyTheme() {
-    const root = document.documentElement;
-    if (this.dark) root.classList.remove('light-theme');
-    else root.classList.add('light-theme');
+    this.themeService.toggle();
   }
 
   @HostListener('window:scroll')

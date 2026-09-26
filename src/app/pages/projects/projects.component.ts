@@ -1,43 +1,44 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
-import { GithubService, GitHubPagesProject } from '../../services/github.service';
+import '@aejkatappaja/phantom-ui';
+import { Project, ProjectsService } from '../../services/projects.service';
+import { ThemeService } from '../../services/theme.service';
+import { ProjectCardComponent } from './project-card/project-card.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, ProjectCardComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './projects.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  githubUsers = ['Aragorn7372', 'G-Corp-YA'];
-  githubPagesProjects: GitHubPagesProject[] = [];
+  projects: Project[] = [];
   loadingProjects = true;
 
-  constructor(private githubService: GithubService) {}
+  constructor(private projectsService: ProjectsService, private themeService: ThemeService) {}
 
-  ngOnInit(): void {
-    this.loadGitHubPagesProjects();
+  get bannerSrc(): string {
+    return this.themeService.bannerSrc;
   }
 
-  loadGitHubPagesProjects(): void {
-    this.githubService.getGitHubPagesProjects(this.githubUsers).subscribe({
+  ngOnInit(): void {
+    this.loadProjects();
+  }
+
+  loadProjects(): void {
+    this.projectsService.getProjects().subscribe({
       next: (projects) => {
-        this.githubPagesProjects = projects;
+        this.projects = projects;
         this.loadingProjects = false;
       },
       error: (error) => {
-        console.error('Error loading GitHub Pages projects:', error);
+        console.error('Error cargando proyectos:', error);
         this.loadingProjects = false;
       }
     });
-  }
-
-  onImageError(event: Event, project: GitHubPagesProject): void {
-    const img = event.target as HTMLImageElement;
-    img.onerror = null;
-    img.src = `https://via.placeholder.com/600x300/0D1117/58A6FF?text=${encodeURIComponent(project.name)}`;
   }
 }

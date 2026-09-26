@@ -1,107 +1,128 @@
-<div class="certificates-page">
+<div class="min-h-screen pb-16">
   <!-- Header -->
-  <header class="certificates-header">
-    <div class="container">
-      <a routerLink="/" class="back-btn">
-        <span class="back-icon">
+  <header class="wave-band">
+    <img class="wave-img" [src]="bannerSrc" alt="" aria-hidden="true" />
+    <div class="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pt-8 pb-12 sm:px-6">
+      <a routerLink="/" class="btn btn-ghost h-auto self-start gap-3 py-2">
+        <span class="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-content">
           <i class="fa-solid fa-arrow-left"></i>
         </span>
-        <span class="back-text">
-          <span class="back-label">Volver</span>
-          <span class="back-sublabel">Inicio</span>
+        <span class="flex flex-col items-start leading-tight">
+          <span class="font-semibold">Volver</span>
+          <span class="text-xs text-base-content/60">Inicio</span>
         </span>
       </a>
 
-      <div class="header-content">
-        <h1>🎓 Mis Certificaciones</h1>
-        <p class="subtitle">Certificados de cursos y formaciones completadas</p>
+      <div class="fade-up flex flex-col gap-2 text-center">
+        <h1 class="text-3xl font-extrabold sm:text-4xl lg:text-5xl">🎓 <span class="text-gradient">Mis Certificaciones</span></h1>
+        <p class="text-base-content/70">Certificados de cursos y formaciones completadas</p>
       </div>
 
       <!-- Barra de búsqueda y filtros -->
-      <div class="search-bar">
-        <div class="search-input-wrapper">
-          <i class="fa-solid fa-magnifying-glass"></i>
+      <div class="fade-up mx-auto w-full max-w-2xl">
+        <label class="input input-lg w-full border-base-300 bg-base-100/80 shadow-lg backdrop-blur">
+          <i class="fa-solid fa-magnifying-glass text-base-content/50"></i>
           <input
             type="text"
             [(ngModel)]="searchTerm"
             (input)="filterCertificates()"
             placeholder="Buscar certificados..."
-            class="search-input"
+            class="grow"
             />
-            @if (!loading) {
-              <span class="result-count">
-                {{ filteredCertificates.length }} resultado{{ filteredCertificates.length !== 1 ? 's' : '' }}
-              </span>
-            }
-          </div>
-        </div>
+          @if (!loading) {
+            <span class="badge badge-primary whitespace-nowrap">
+              {{ filteredCertificates.length }} resultado{{ filteredCertificates.length !== 1 ? 's' : '' }}
+            </span>
+          }
+        </label>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Content -->
-    <main class="container">
-      <!-- Loading -->
-      @if (loading) {
-        <div class="loading-certificates">
-          <div class="spinner-large"></div>
-          <p>Cargando certificados...</p>
-        </div>
-      }
+  <!-- Content -->
+  <main class="mx-auto max-w-[1400px] px-4 sm:px-6">
+    <!-- Loading -->
+    @if (loading) {
+      <div class="flex flex-col gap-4">
+        <p class="text-center text-sm text-base-content/60">Cargando certificados...</p>
+        <phantom-ui loading animation="shimmer" loading-label="Cargando certificados"
+          shimmer-color="color-mix(in oklab, var(--color-primary) 30%, transparent)"
+          background-color="var(--color-base-300)">
+          <div class="card border border-base-300 bg-base-200">
+            <div class="card-body gap-4">
+              @for (placeholder of [1, 2, 3, 4, 5, 6]; track placeholder) {
+                <div class="flex items-center justify-between gap-4">
+                  <span class="flex-1">Título del certificado de ejemplo</span>
+                  <span class="badge">1 de enero de 2025</span>
+                  <span class="btn btn-sm">Ver</span>
+                  <span class="btn btn-sm">Descargar</span>
+                </div>
+              }
+            </div>
+          </div>
+        </phantom-ui>
+      </div>
+    }
 
-      <!-- No certificates -->
-      @if (!loading && certificates.length === 0) {
-        <div class="no-certificates">
-          <i class="fa-solid fa-certificate"></i>
-          <h2>No se encontraron certificados</h2>
-          <p>No hay certificados disponibles en este momento.</p>
-          <a routerLink="/" class="btn primary">
+    <!-- No certificates -->
+    @if (!loading && certificates.length === 0) {
+      <div class="fade-up card mx-auto max-w-lg border border-base-300 bg-base-200">
+        <div class="card-body items-center gap-3 text-center">
+          <i class="fa-solid fa-certificate text-5xl text-primary"></i>
+          <h2 class="card-title">No se encontraron certificados</h2>
+          <p class="text-base-content/70">No hay certificados disponibles en este momento.</p>
+          <a routerLink="/" class="btn btn-primary mt-2">
             <i class="fa-solid fa-house"></i> Volver al inicio
           </a>
         </div>
-      }
+      </div>
+    }
 
-      <!-- No results -->
-      @if (!loading && certificates.length > 0 && filteredCertificates.length === 0) {
-        <div class="no-results">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <h2>No se encontraron resultados</h2>
-          <p>Intenta con otro término de búsqueda</p>
-          <button (click)="searchTerm = ''; filterCertificates()" class="btn ghost">
+    <!-- No results -->
+    @if (!loading && certificates.length > 0 && filteredCertificates.length === 0) {
+      <div class="fade-up card mx-auto max-w-lg border border-base-300 bg-base-200">
+        <div class="card-body items-center gap-3 text-center">
+          <i class="fa-solid fa-magnifying-glass text-5xl text-primary"></i>
+          <h2 class="card-title">No se encontraron resultados</h2>
+          <p class="text-base-content/70">Intenta con otro término de búsqueda</p>
+          <button (click)="searchTerm = ''; filterCertificates()" class="btn btn-ghost mt-2">
             <i class="fa-solid fa-xmark"></i> Limpiar búsqueda
           </button>
         </div>
-      }
+      </div>
+    }
 
-      <!-- Certificates table -->
-      @if (!loading && filteredCertificates.length > 0) {
-        <div class="certificates-container">
-          <div class="table-wrapper">
-            <table class="certificates-table">
+    <!-- Certificates table -->
+    @if (!loading && filteredCertificates.length > 0) {
+      <div class="flex flex-col gap-6">
+        <div class="card overflow-hidden border border-base-300 bg-base-200 shadow-lg">
+          <div class="overflow-x-auto">
+            <table class="table table-zebra certificates-table">
               <thead>
-                <tr>
-                  <th class="sortable" (click)="changeSortBy('titulo')">
-                    <div class="th-content">
-                      <i class="fa-solid fa-graduation-cap"></i>
+                <tr class="border-base-300 bg-base-300/60 text-base-content">
+                  <th class="sortable cursor-pointer select-none hover:text-primary" (click)="changeSortBy('titulo')">
+                    <div class="flex items-center gap-2">
+                      <i class="fa-solid fa-graduation-cap text-primary"></i>
                       <span>Certificado</span>
                       <i class="fa-solid fa-sort sort-icon"
                         [class.active]="sortBy === 'titulo'"
                         [class.asc]="sortBy === 'titulo' && sortDirection === 'asc'"
-                      [class.desc]="sortBy === 'titulo' && sortDirection === 'desc'"></i>
+                        [class.desc]="sortBy === 'titulo' && sortDirection === 'desc'"></i>
                     </div>
                   </th>
-                  <th class="sortable date-column" (click)="changeSortBy('fecha')">
-                    <div class="th-content">
-                      <i class="fa-solid fa-calendar"></i>
+                  <th class="sortable date-column w-56 cursor-pointer select-none hover:text-primary" (click)="changeSortBy('fecha')">
+                    <div class="flex items-center gap-2">
+                      <i class="fa-solid fa-calendar text-primary"></i>
                       <span>Fecha</span>
                       <i class="fa-solid fa-sort sort-icon"
                         [class.active]="sortBy === 'fecha'"
                         [class.asc]="sortBy === 'fecha' && sortDirection === 'asc'"
-                      [class.desc]="sortBy === 'fecha' && sortDirection === 'desc'"></i>
+                        [class.desc]="sortBy === 'fecha' && sortDirection === 'desc'"></i>
                     </div>
                   </th>
-                  <th class="actions-column">
-                    <div class="th-content">
-                      <i class="fa-solid fa-wrench"></i>
+                  <th class="w-64">
+                    <div class="flex items-center justify-center gap-2">
+                      <i class="fa-solid fa-wrench text-primary"></i>
                       <span>Acciones</span>
                     </div>
                   </th>
@@ -110,29 +131,29 @@
               <tbody>
                 @for (cert of filteredCertificates; track cert; let i = $index) {
                   <tr
-                    class="certificate-row"
+                    class="certificate-row border-base-300 hover:bg-primary/5"
                     [style.animation-delay]="(i * 0.05) + 's'">
-                    <td class="title-cell">
-                      <div class="certificate-title">
-                        <i class="fa-solid fa-award cert-icon"></i>
+                    <td>
+                      <div class="flex items-center gap-3 font-medium">
+                        <i class="fa-solid fa-award text-primary"></i>
                         <span>{{ certificatesService.formatTitle(cert.titulo) }}</span>
                       </div>
                     </td>
                     <td class="date-cell">
-                      <span class="date-badge">{{ formatDate(cert.fecha) }}</span>
+                      <span class="badge badge-soft badge-primary whitespace-nowrap">{{ formatDate(cert.fecha) }}</span>
                     </td>
                     <td class="actions-cell">
-                      <div class="action-buttons">
+                      <div class="flex justify-center gap-2">
                         <button
                           (click)="openCertificate(cert.url)"
-                          class="action-btn view-btn"
+                          class="btn btn-sm btn-primary"
                           title="Ver certificado">
                           <i class="fa-solid fa-eye"></i>
                           <span class="btn-text">Ver</span>
                         </button>
                         <button
                           (click)="downloadCertificate(cert)"
-                          class="action-btn download-btn"
+                          class="btn btn-sm btn-outline"
                           title="Descargar certificado">
                           <i class="fa-solid fa-download"></i>
                           <span class="btn-text">Descargar</span>
@@ -144,24 +165,22 @@
               </tbody>
             </table>
           </div>
-          <!-- Stats -->
-          <div class="certificates-stats">
-            <div class="stat-card">
-              <i class="fa-solid fa-certificate"></i>
-              <div class="stat-info">
-                <span class="stat-number">{{ certificates.length }}</span>
-                <span class="stat-label">Total Certificados</span>
-              </div>
-            </div>
-            <div class="stat-card">
-              <i class="fa-solid fa-filter"></i>
-              <div class="stat-info">
-                <span class="stat-number">{{ filteredCertificates.length }}</span>
-                <span class="stat-label">Mostrando</span>
-              </div>
-            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats stats-vertical border border-base-300 bg-base-200 shadow sm:stats-horizontal">
+          <div class="stat">
+            <div class="stat-figure text-3xl text-primary"><i class="fa-solid fa-certificate"></i></div>
+            <div class="stat-value text-primary">{{ certificates.length }}</div>
+            <div class="stat-title">Total Certificados</div>
+          </div>
+          <div class="stat">
+            <div class="stat-figure text-3xl text-primary"><i class="fa-solid fa-filter"></i></div>
+            <div class="stat-value text-primary">{{ filteredCertificates.length }}</div>
+            <div class="stat-title">Mostrando</div>
           </div>
         </div>
-      }
-    </main>
-  </div>
+      </div>
+    }
+  </main>
+</div>
