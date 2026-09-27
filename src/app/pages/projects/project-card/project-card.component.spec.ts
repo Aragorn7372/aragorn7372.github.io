@@ -4,6 +4,7 @@ import { buildLanguageSlices, ProjectCardComponent } from './project-card.compon
 
 const baseProject: Project = {
   name: 'repo',
+  displayName: 'repo',
   description: null,
   url: 'https://github.com/o/repo',
   pagesUrl: null,
@@ -57,6 +58,39 @@ describe('ProjectCardComponent', () => {
     expect(text).not.toContain('Forks');
     expect(el.querySelectorAll('footer a').length).toBe(2);
     expect(el.querySelector('.donut')).not.toBeNull();
+  });
+});
+
+describe('ProjectCardComponent: botones', () => {
+  it('"Ver repositorio" siempre es el botón relleno y "Pages" el transparente', () => {
+    const [repo, pages] = Array.from(render({ ...baseProject, pagesUrl: 'https://o.github.io/repo' })
+      .querySelectorAll('footer a'));
+
+    expect(repo.classList).toContain('btn-primary');
+    expect(pages.classList).toContain('btn-outline');
+    expect(pages.classList).not.toContain('btn-primary');
+  });
+
+  it('no hay enlace a GitHub en la cabecera: solo los botones del pie', () => {
+    const el = render(baseProject);
+    expect(el.querySelectorAll('header a').length).toBe(0);
+    expect(el.querySelector('footer a')?.classList).toContain('btn-primary');
+  });
+});
+
+describe('ProjectCardComponent: nombre para mostrar', () => {
+  it('usa el displayName como título y muestra owner/repo debajo', () => {
+    const el = render({ ...baseProject, displayName: 'Repo bonito' });
+
+    expect(el.querySelector('h3')?.textContent?.trim()).toBe('Repo bonito');
+    expect(el.querySelector('h3 + p')?.textContent?.trim()).toBe('o/repo');
+  });
+
+  it('si el título es el nombre del repo, debajo solo aparece el propietario', () => {
+    const el = render(baseProject);
+
+    expect(el.querySelector('h3')?.textContent?.trim()).toBe('repo');
+    expect(el.querySelector('h3 + p')?.textContent?.trim()).toBe('o');
   });
 });
 

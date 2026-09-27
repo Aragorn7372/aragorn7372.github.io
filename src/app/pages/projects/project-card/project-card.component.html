@@ -11,14 +11,11 @@
         <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/15 font-bold text-primary" aria-hidden="true">{{ initial() }}</span>
       }
       <div class="min-w-0 flex-1">
-        <h3 class="truncate text-lg font-bold" [title]="p.name">{{ p.name }}</h3>
-        @if (p.owner) {
-          <p class="truncate text-sm text-base-content/60">{{ p.owner }}</p>
+        <h3 class="truncate text-lg font-bold" [title]="p.name">{{ p.displayName }}</h3>
+        @if (subtitle()) {
+          <p class="truncate text-sm text-base-content/60">{{ subtitle() }}</p>
         }
       </div>
-      <a [href]="p.url" target="_blank" rel="noopener" class="link link-hover shrink-0 text-sm text-primary">
-        GitHub <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-      </a>
     </header>
 
     @if (p.description) {
@@ -41,7 +38,7 @@
             }
           </ul>
           <div class="donut h-20 w-20 shrink-0 rounded-full sm:h-24 sm:w-24" [style.background]="donut()" role="img"
-            [attr.aria-label]="'Reparto de lenguajes de ' + p.name"></div>
+            [attr.aria-label]="'Reparto de lenguajes de ' + p.displayName"></div>
         </div>
       </section>
     }
@@ -88,12 +85,11 @@
 
     <!-- Acciones: siempre al pie, alineadas entre tarjetas de la misma fila -->
     <footer class="mt-auto flex gap-2 border-t border-base-300 pt-4">
-      <a [href]="p.url" target="_blank" rel="noopener" class="btn btn-sm flex-1 whitespace-nowrap"
-        [class.btn-outline]="!!p.pagesUrl" [class.btn-primary]="!p.pagesUrl">
+      <a [href]="p.url" target="_blank" rel="noopener" class="btn btn-primary btn-sm flex-1 whitespace-nowrap">
         <i class="fa-brands fa-github"></i> Ver repositorio <span class="hidden sm:inline"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>
       </a>
       @if (p.pagesUrl) {
-        <a [href]="p.pagesUrl" target="_blank" rel="noopener" class="btn btn-primary btn-sm flex-1 whitespace-nowrap">
+        <a [href]="p.pagesUrl" target="_blank" rel="noopener" class="btn btn-outline btn-sm flex-1 whitespace-nowrap">
           <i class="fa-solid fa-globe"></i> Pages <span class="hidden sm:inline"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>
         </a>
       }

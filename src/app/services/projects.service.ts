@@ -7,6 +7,8 @@ import { environment } from '../../environments/enviroment';
 /** Proyecto tal como lo devuelve Portfolio-api (`ProjectResponseDto`). */
 export interface Project {
   name: string;
+  /** Nombre para mostrar (`<nombre> | <descripción>` en GitHub); si no hay, el nombre del repo. */
+  displayName: string;
   description: string | null;
   url: string;
   pagesUrl: string | null;
@@ -60,10 +62,12 @@ export function normalizeProjects(projects: Partial<Project>[]): Project[] {
     if (!avatarByOwner.has(owner)) {
       avatarByOwner.set(owner, sizedAvatar(p.avatarUrl ?? ''));
     }
+    const name = p.name ?? '';
     const description = p.description?.trim();
 
     return {
-      name: p.name ?? '',
+      name,
+      displayName: p.displayName?.trim() || name,
       description: description ? description : null,
       url: p.url ?? '',
       pagesUrl: p.pagesUrl?.trim() ? p.pagesUrl : null,

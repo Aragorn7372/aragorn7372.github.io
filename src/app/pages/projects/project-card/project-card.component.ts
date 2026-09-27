@@ -52,6 +52,12 @@ export class ProjectCardComponent {
   readonly visibleTopics = computed(() => this.project().topics.slice(0, MAX_TOPICS));
   readonly hiddenTopics = computed(() => Math.max(0, this.project().topics.length - MAX_TOPICS));
 
+  /** `owner/repo` cuando el título es un nombre para mostrar; si coincide con el repo, solo el owner. */
+  readonly subtitle = computed(() => {
+    const p = this.project();
+    return p.displayName !== p.name && p.owner ? `${p.owner}/${p.name}` : p.owner;
+  });
+
   readonly initial = computed(() => (this.project().owner || this.project().name).charAt(0).toUpperCase());
 }
 

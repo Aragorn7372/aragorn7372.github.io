@@ -56,7 +56,9 @@ export class CertificatesService {
     return titulo
       .replace(/^certificado_/i, '')
       .replace(/_/g, ' ')
-      .replace(/\b\w/g, char => char.toUpperCase()); // Capitalizar cada palabra
+      // Mayúscula al inicio de cada palabra. \p{L} (con la bandera u) reconoce cualquier letra;
+      // con \b\w las letras con tilde o la ñ contaban como separador y salía "DiseñO".
+      .replace(/(^|\s)(\p{L})/gu, (_, space: string, letter: string) => space + letter.toUpperCase());
   }
 
   /**
