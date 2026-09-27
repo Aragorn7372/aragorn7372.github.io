@@ -1,5 +1,5 @@
 @let p = project();
-<article class="card h-full border border-base-300 bg-base-200 transition hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl">
+<article class="card h-full min-w-0 border border-base-300 bg-base-200 transition hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl">
   <div class="card-body gap-5">
     <!-- Cabecera: avatar, nombre y propietario -->
     <header class="flex items-start gap-3">
@@ -20,7 +20,7 @@
 
     @if (p.description) {
       <!-- grow-0: daisyUI estira los <p> de card-body y desplazaría el resto del contenido -->
-      <p class="line-clamp-3 grow-0 text-sm leading-relaxed text-base-content/80" [title]="p.description">{{ p.description }}</p>
+      <p class="line-clamp-3 grow-0 text-sm leading-relaxed text-base-content/80 [overflow-wrap:anywhere]" [title]="p.description">{{ p.description }}</p>
     }
 
     <!-- Lenguajes: lista con su color y donut -->
@@ -63,7 +63,7 @@
         <h4 class="text-xs font-semibold uppercase tracking-wider text-base-content/60">Tecnologías</h4>
         <div class="flex flex-wrap gap-1.5">
           @for (tech of p.technologies; track tech) {
-            <span class="badge badge-soft badge-primary">{{ tech }}</span>
+            <span class="badge badge-soft badge-primary max-w-full" [title]="tech"><span class="min-w-0 truncate">{{ tech }}</span></span>
           }
         </div>
       </section>
@@ -74,7 +74,7 @@
         <h4 class="text-xs font-semibold uppercase tracking-wider text-base-content/60">Topics</h4>
         <div class="flex flex-wrap gap-1.5">
           @for (topic of visibleTopics(); track topic) {
-            <span class="badge badge-outline badge-sm border-base-content/25 text-base-content/75">{{ topic }}</span>
+            <span class="badge badge-outline badge-sm border-base-content/25 text-base-content/75 max-w-full" [title]="topic"><span class="min-w-0 truncate">{{ topic }}</span></span>
           }
           @if (hiddenTopics() > 0) {
             <span class="badge badge-ghost badge-sm" [title]="p.topics.join(', ')">+{{ hiddenTopics() }}</span>
@@ -84,12 +84,12 @@
     }
 
     <!-- Acciones: siempre al pie, alineadas entre tarjetas de la misma fila -->
-    <footer class="mt-auto flex gap-2 border-t border-base-300 pt-4">
-      <a [href]="p.url" target="_blank" rel="noopener" class="btn btn-primary btn-sm flex-1 whitespace-nowrap">
+    <footer class="mt-auto flex flex-wrap gap-2 border-t border-base-300 pt-4">
+      <a [href]="p.url" target="_blank" rel="noopener" class="btn btn-primary btn-sm min-w-[9rem] flex-1 whitespace-nowrap">
         <i class="fa-brands fa-github"></i> Ver repositorio <span class="hidden sm:inline"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>
       </a>
       @if (p.pagesUrl) {
-        <a [href]="p.pagesUrl" target="_blank" rel="noopener" class="btn btn-outline btn-sm flex-1 whitespace-nowrap">
+        <a [href]="p.pagesUrl" target="_blank" rel="noopener" class="btn btn-outline btn-sm min-w-[9rem] flex-1 whitespace-nowrap">
           <i class="fa-solid fa-globe"></i> Pages <span class="hidden sm:inline"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>
         </a>
       }

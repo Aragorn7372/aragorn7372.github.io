@@ -20,7 +20,7 @@ const OTHERS_COLOR = '#8b949e';
   standalone: true,
   templateUrl: './project-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block h-full' }
+  host: { class: 'block h-full min-w-0' }
 })
 export class ProjectCardComponent {
   readonly project = input.required<Project>();

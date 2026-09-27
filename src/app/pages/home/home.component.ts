@@ -18,11 +18,20 @@ export class HomeComponent {
   year = new Date().getFullYear();
   bannerUrl = '';
   showScrollTop = false;
-  githubStatsUrl = 'https://raw.githubusercontent.com/Aragorn7372/Aragorn7372/master/stats-images/general-stats.svg';
+  private readonly statsBaseUrl = 'https://raw.githubusercontent.com/Aragorn7372/Aragorn7372/master/stats-images';
 
-  topLangsUrl = 'https://raw.githubusercontent.com/Aragorn7372/Aragorn7372/master/stats-images/top-langs.svg';
+  // Las estadísticas se generan en versión oscura (`x.svg`) y clara (`x-light.svg`): se usa la del tema activo
+  get githubStatsUrl(): string {
+    return this.statsImage('general-stats');
+  }
 
-  streakUrl = 'https://raw.githubusercontent.com/Aragorn7372/Aragorn7372/master/stats-images/activity-graph.svg';
+  get topLangsUrl(): string {
+    return this.statsImage('top-langs');
+  }
+
+  get streakUrl(): string {
+    return this.statsImage('activity-graph');
+  }
 
   profileData = {
     about: 'Soy un desarrollador full stack titulado en el IES Luis Vives, apasionado por crear soluciones tecnológicas y aprender constantemente. Me encanta explorar diferentes tecnologías y aplicarlas en proyectos reales.',
@@ -84,6 +93,10 @@ export class HomeComponent {
 
   get bannerSrc(): string {
     return this.themeService.bannerSrc;
+  }
+
+  private statsImage(name: string): string {
+    return `${this.statsBaseUrl}/${name}${this.dark ? '' : '-light'}.svg`;
   }
 
   downloadCV() {
