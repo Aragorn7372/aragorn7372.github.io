@@ -39,7 +39,7 @@
     "@angular/cli": "^22.2.0",
     "@angular/compiler-cli": "^22.2.0",
     "@tailwindcss/postcss": "^4.3.3",
-    "@types/jasmine": "~5.1.0",
+    "@types/jasmine": "~7.0.0",
     "daisyui": "^5.7.46",
     "istanbul-lib-instrument": "^6.0.3",
     "jasmine-core": "^5.13.0",
