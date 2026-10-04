@@ -28,11 +28,29 @@
   text-decoration: underline;
 }
 
-.markdown ::ng-deep img {
+.markdown ::ng-deep img.md-photo {
+  display: block;
   max-width: 100%;
+  max-height: 28rem;
+  width: auto;
   height: auto;
+  margin: 0.5rem auto;
+  object-fit: contain;
   border-radius: var(--radius-box);
   border: 1px solid var(--color-base-300);
+}
+
+/* Iconos, badges y logos: en línea; si el markdown no fija tamaño, a la altura de un badge */
+.markdown ::ng-deep img.md-icon {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+  margin: 0 0.15rem 0.35rem;
+}
+
+.markdown ::ng-deep img.md-icon:not([style]) {
+  height: 2rem;
+  width: auto;
 }
 
 .markdown ::ng-deep code {
@@ -59,6 +77,8 @@
 
 .markdown ::ng-deep hr { border-color: var(--color-base-300); }
 
-.markdown ::ng-deep table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
+.markdown ::ng-deep .md-table { overflow-x: auto; }
+.markdown ::ng-deep table { width: 100%; border-collapse: collapse; }
+.markdown ::ng-deep th { background: var(--color-base-300); text-align: left; }
 .markdown ::ng-deep th,
 .markdown ::ng-deep td { border: 1px solid var(--color-base-300); padding: 0.4rem 0.6rem; }
