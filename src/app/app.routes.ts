@@ -11,5 +11,9 @@ export const routes: Routes = [
     path: 'certificates',
     loadComponent: () => import('./pages/certificates/certificates.component').then(m => m.CertificatesComponent)
   },
+  {
+    path: 'experience/:id',
+    loadComponent: () => import('./pages/experience/experience-detail.component').then(m => m.ExperienceDetailComponent)
+  },
   { path: '**', redirectTo: '' }
 ];

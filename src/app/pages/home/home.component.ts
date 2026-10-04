@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
 import { VisitSessionService } from '../../services/visit-session.service';
+import { ExperienceService } from '../../services/experience.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -84,6 +86,9 @@ export class HomeComponent {
 
   /** Total de visitas que devuelve Portfolio-api al registrar la visita. */
   readonly visits = inject(VisitSessionService).visits;
+
+  /** Experiencia laboral desde Portfolio-api (`undefined` mientras carga). */
+  readonly experiences = toSignal(inject(ExperienceService).getExperiences());
 
   constructor(private themeService: ThemeService) {}
 

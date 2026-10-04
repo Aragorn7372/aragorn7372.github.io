@@ -1,0 +1,78 @@
+<div class="min-h-screen pb-16">
+  <!-- Header -->
+  <header class="wave-band">
+    <img class="wave-img" [src]="bannerSrc" alt="" aria-hidden="true" />
+    <div class="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pt-8 pb-12 sm:px-6">
+      <a routerLink="/" class="btn btn-ghost h-auto self-start gap-3 py-2">
+        <span class="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-content">
+          <i class="fa-solid fa-arrow-left"></i>
+        </span>
+        <span class="flex flex-col items-start leading-tight">
+          <span class="font-semibold">Volver</span>
+          <span class="text-xs text-base-content/60">Inicio</span>
+        </span>
+      </a>
+
+      @if (experience) {
+        <div class="fade-up flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left">
+          @if (logoUrl) {
+            <img class="h-20 w-20 shrink-0 rounded-box bg-white object-contain p-1.5" [src]="logoUrl" [alt]="'Logo de ' + experience.company" />
+          } @else {
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-box bg-base-300 text-3xl text-base-content/70">
+              <i class="fa-solid fa-building"></i>
+            </span>
+          }
+          <div class="flex min-w-0 flex-col gap-1">
+            <h1 class="text-gradient text-3xl font-extrabold sm:text-4xl">{{ experience.company }}</h1>
+            <p class="text-lg font-semibold">{{ experience.title }}</p>
+            <p class="text-sm text-base-content/70"><i class="fa-solid fa-location-dot"></i> {{ experience.location }}</p>
+          </div>
+        </div>
+      } @else {
+        <div class="fade-up flex flex-col gap-2 text-center">
+          <h1 class="text-gradient text-3xl font-extrabold sm:text-4xl lg:text-5xl">Experiencia</h1>
+        </div>
+      }
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="mx-auto max-w-[1000px] px-4 sm:px-6">
+    @if (loading) {
+      <phantom-ui loading animation="shimmer" loading-label="Cargando experiencia"
+        shimmer-color="color-mix(in oklab, var(--color-primary) 30%, transparent)"
+        background-color="var(--color-base-300)">
+        <div class="card border border-base-300 bg-base-200">
+          <div class="card-body gap-4">
+            <span class="text-xl">Título de la sección</span>
+            <p>Descripción de la experiencia en varias líneas de texto para ocupar espacio.</p>
+            <p>Descripción de la experiencia en varias líneas de texto para ocupar espacio.</p>
+            <p>Descripción de la experiencia en varias líneas.</p>
+          </div>
+        </div>
+      </phantom-ui>
+    }
+
+    @if (!loading && experience) {
+      <article class="fade-up card border border-base-300 bg-base-200">
+        <div class="card-body markdown" [innerHTML]="html"></div>
+      </article>
+    }
+
+    @if (!loading && !experience) {
+      <div class="fade-up card mx-auto max-w-lg border border-base-300 bg-base-200">
+        <div class="card-body items-center gap-3 text-center">
+          <i class="fa-solid fa-briefcase text-5xl text-primary"></i>
+          <h2 class="card-title">Experiencia no encontrada</h2>
+          <p class="text-base-content/70">No se ha podido cargar esta experiencia.</p>
+        </div>
+      </div>
+    }
+
+    <div class="mt-10 flex justify-center">
+      <a routerLink="/" class="btn btn-primary">
+        <i class="fa-solid fa-house"></i> Volver al inicio
+      </a>
+    </div>
+  </main>
+</div>
