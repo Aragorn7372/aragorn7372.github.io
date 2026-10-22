@@ -81,11 +81,14 @@
 
 html {
   scroll-behavior: smooth;
+  /* Un desbordamiento accidental no debe ampliar el viewport móvil (zoom-out / font boosting) */
+  overflow-x: clip;
+  text-size-adjust: 100%;
 }
 
 body {
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Animaciones compartidas */

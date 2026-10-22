@@ -22,18 +22,18 @@
     <!-- Botones en dos grupos: principales y secundarios. En móvil se reparten en rejilla a ancho completo -->
     <div class="fade-up flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
       <div class="grid grid-cols-2 gap-2 sm:flex">
-        <a routerLink="/projects" class="btn btn-primary whitespace-nowrap max-sm:px-3 max-sm:text-[0.8rem]">
+        <a routerLink="/projects" class="btn btn-primary min-w-0 sm:whitespace-nowrap max-sm:h-auto max-sm:min-h-10 max-sm:px-3 max-sm:text-[0.8rem] max-sm:leading-tight">
           <i class="fa-solid fa-folder-open"></i> Ver Proyectos
         </a>
-        <a routerLink="/certificates" class="btn btn-primary whitespace-nowrap max-sm:px-3 max-sm:text-[0.8rem]">
+        <a routerLink="/certificates" class="btn btn-primary min-w-0 sm:whitespace-nowrap max-sm:h-auto max-sm:min-h-10 max-sm:px-3 max-sm:text-[0.8rem] max-sm:leading-tight">
           <i class="fa-solid fa-certificate"></i> Certificados
         </a>
       </div>
-      <div class="grid grid-cols-[1fr_1fr_auto] gap-2 sm:flex">
-        <button (click)="downloadCV()" class="btn btn-ghost border-base-content/20 whitespace-nowrap max-sm:px-3 max-sm:text-[0.8rem]">
+      <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-2 sm:flex">
+        <button (click)="downloadCV()" class="btn btn-ghost border-base-content/20 min-w-0 sm:whitespace-nowrap max-sm:h-auto max-sm:min-h-10 max-sm:px-3 max-sm:text-[0.8rem] max-sm:leading-tight">
           <i class="fa-solid fa-file-pdf"></i> Descargar CV
         </button>
-        <a class="btn btn-ghost border-base-content/20 whitespace-nowrap max-sm:px-3 max-sm:text-[0.8rem]" [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener">
+        <a class="btn btn-ghost border-base-content/20 min-w-0 sm:whitespace-nowrap max-sm:h-auto max-sm:min-h-10 max-sm:px-3 max-sm:text-[0.8rem] max-sm:leading-tight" [href]="'https://github.com/' + githubUser" target="_blank" rel="noopener">
           <i class="fa-brands fa-github"></i> GitHub
         </a>
         <button id="themeToggle" (click)="toggleTheme()" class="btn btn-square btn-ghost theme-toggle border-base-content/20" title="Cambiar tema">
