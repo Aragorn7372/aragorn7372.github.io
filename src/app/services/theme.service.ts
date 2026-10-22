@@ -32,7 +32,7 @@ export class ThemeService {
 
   get bannerSrc(): string {
     const suffix = this.bannerStyle === 'palette' ? '-palette' : '';
-    return `banner-${this.dark ? 'dark' : 'light'}${suffix}.svg`;
+    return `/banner-${this.dark ? 'dark' : 'light'}${suffix}.svg`;
   }
 
   toggle(): void {
