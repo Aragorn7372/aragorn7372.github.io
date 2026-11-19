@@ -21,8 +21,8 @@ RUN npm run build
 # ============================================
 # STAGE 2: Servir con Nginx
 # ============================================
-# nginx:alpine = 1.31.8 (pin 2026-10-24, parches NGINX oct-2026, CVE-2026-15176/97205/93479)
-FROM nginx:alpine@sha256:a3554c0d0b48177b1413c26e01f695334428020d9df01243fbae3e11cfd17417 AS htmlblog
+# nginx:1.31.9-alpine (pin 2026-11-19, NGINX2Root: CVE-2026-123007/123633/123634/121810/113425)
+FROM nginx:1.31.9-alpine@sha256:90b6bd2aec278b16b98221d64deb1d6d35d164567f507ab0716e6053878315aa AS htmlblog
 
 # Eliminar la web por defecto
 RUN rm -rf /usr/share/nginx/html/*
