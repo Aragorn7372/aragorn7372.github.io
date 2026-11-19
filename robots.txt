@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /__cv-origin
+Disallow: /*?cv-origin=
+
+Sitemap: https://cv.victor-service.dev/sitemap.xml
